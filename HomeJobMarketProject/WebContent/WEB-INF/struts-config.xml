@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 1.3//EN"
+"http://jakarta.apache.org/struts/dtds/struts-config_1_3.dtd">
+
+
+<struts-config>
+	<form-beans>
+		<form-bean name="register" type="com.hm.app.form.RegisterForm" />
+		<form-bean name="login" type="com.hm.app.form.LoginForm" />
+		<form-bean name="getDetails" type="com.hm.app.form.GetDetailsForm" />
+		<form-bean name="jobCreate" type="com.hm.app.form.JobForm" />
+		<form-bean name="update" type="com.hm.app.form.UpdateForm" />
+	</form-beans>
+
+	<action-mappings>
+		<action path="/reg" name="register" type="com.hm.app.action.RegisterAction"
+			scope="session" validate="true" input="/register.jsp">
+			<forward name="seeker" path="/seekerProfile.jsp" />
+			<forward name="sitter" path="/sitterProfile.jsp" />
+			<forward name="error" path="/WEB-INF/error.jsp" />
+		</action>
+
+		<action path="/login" name="login" type="com.hm.app.action.LoginAction"
+			scope="session" validate="true" input="/login.jsp">
+			<forward name="seeker" path="/seekerProfile.jsp" />
+			<forward name="sitter" path="/sitterProfile.jsp" />
+			<forward name="error" path="/WEB-INF/error.jsp" />
+		</action>
+
+		<action path="/logout" type="com.hm.app.action.LogoutAction"
+			scope="session">
+			<forward name="success" path="/index.jsp" />
+			<forward name="error" path="/WEB-INF/error.jsp" />
+		</action>
+
+		<!-- <action path="/getDetails" name="getDetails" type="com.hm.app.action.LoginAction" 
+			scope="session" validate="false" input="/login.jsp"> <forward name="seeker" 
+			path="/seekerProfile.jsp" /> <forward name="sitter" path="/sitterProfile.jsp" 
+			/> <forward name="error" path="/WEB-INF/error.jsp" /> </action> -->
+
+		<action path="/seekerRedirectToUpdate" type="com.hm.app.action.UpdateRedirectAction"
+			scope="session" validate="true" input="/seekerProfile.jsp">
+			<forward name="success" path="/seekerProfileUpdate.jsp" />
+			<forward name="error" path="/WEB-INF/error.jsp" />
+		</action>
+
+		<action path="/sitterReddd-mm-yyirectToUpdate" type="com.hm.app.action.UpdateRedirectAction"
+			scope="session" validate="false" input="/sitterProfile.jsp">
+			<forward name="success" path="/sitterProfileUpdate.jsp" />
+			<forward name="error" path="/WEB-INF/error.jsp" />
+		</action>
+
+		<!-- Seeker Update -->
+		<action path="/seekerUpdate" name="update"
+			type="com.hm.app.action.UpdateAction" scope="session" validate="true"
+			input="/seekerProfileUpdate.jsp">
+			<forward name="success" path="/seekerProfile.jsp" />
+			<forward name="error" path="/WEB-INF/error.jsp" />
+		</action>
+
+		<!-- Sitter Update -->
+		<action path="/sitterUpdate" name="update"
+			type="com.hm.app.action.UpdateAction" scope="session" validate="true"
+			input="/sitterProfileUpdate.jsp">
+			<forward name="success" path="/sitterProfile.jsp" />
+			<forward name="error" path="/WEB-INF/error.jsp" />
+		</action>
+		
+
+		<!-- Job Page page redirect -->
+		<action path="/jobCreateRedirecte" type="com.hm.app.action.JobPageRedirectAction"
+			scope="session" validate="false" input="/seekerProfile.jsp">
+			<forward name="seeker" path="/jobCreate.jsp" />
+			<forward name="sitter" path="/notification.jsp" />
+			<forward name="error" path="/WEB-INF/error.jsp" />
+		</action>
+		<!-- Job Create -->
+		<action path="/jobCreate" name="jobCreate" type="com.hm.app.action.JobCreateAction"
+			scope="session" validate="true" input="/jobCreate.jsp">
+			<forward name="success" path="/seekerProfile.jsp" />
+			<forward name="sitter" path="/notification.jsp" />
+			<forward name="error" path="/WEB-INF/error.jsp" />
+		</action>
+
+		<!-- Get job List -->
+		<action path="/jobList" type="com.hm.app.action.GetAllJobAction"
+			scope="session" validate="false" input="/sitterProfile.jsp">
+			<forward name="sitter" path="/jobList.jsp" />
+			<forward name="seeker" path="/notification.jsp" />
+			<forward name="error" path="/WEB-INF/error.jsp" />
+		</action>
+
+
+
+
+	</action-mappings>
+
+
+
+
+
+	<!-- <controller processorClass="hm.com.register.RegisterProcessor" /> -->
+	<message-resources parameter="messages" />
+
+	<!-- <message-resources parameter="validatormsg" /> -->
+
+
+	<plug-in className="org.apache.struts.validator.ValidatorPlugIn">
+		<set-property property="pathnames"
+			value="/WEB-INF/validator-rules.xml,
+                             /WEB-INF/homeJob_validator.xml" />
+	</plug-in>
+</struts-config>

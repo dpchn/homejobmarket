@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.hm.app.model.JobModel" table="job">
+		<id name="id" type="int">
+			<column name="jobId" />
+			<generator class="increment" />
+		</id>
+		<property name="jobTitle" type="string">
+			<column name="jobTitle" />
+		</property>
+		<property name="jobDes" type="string">
+			<column name="jobDes" />
+		</property>
+		<property name="startDate" type="timestamp">
+			<column name="startDate" />
+		</property>
+		<property name="postedBy">
+			<column name="postedBy" />
+		</property>
+		<property name="endDate" type="timestamp">
+			<column name="endDate" />
+		</property>
+		
+		<property name="payPerHour">
+			<column name="payPerHour" />
+		</property>
+
+	</class>
+</hibernate-mapping>
