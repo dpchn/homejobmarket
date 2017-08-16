@@ -2,19 +2,32 @@ package com.hm.app.model;
 
 import java.util.Date;
 
-public class JobModel {
+public class Job {
 	private int id;
 	private String jobTitle;
 	private String jobDes;
 	private Date startDate;
 	private Date endDate;
-	private int postedBy;
+	private User postedBy;
+	
+	public Job() {
+		
+	}
+	
+	public Job(String jobTitle, String jobDes, Date startDate, Date endDate, User postedBy) {
+		this.jobTitle = jobTitle;
+		this.jobDes = jobDes;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.postedBy = postedBy;
+		
+	}
 
-	public int getPostedBy() {
+	public User getPostedBy() {
 		return postedBy;
 	}
 
-	public void setPostedBy(int postedBy) {
+	public void setPostedBy(User postedBy) {
 		this.postedBy = postedBy;
 	}
 

@@ -6,7 +6,7 @@ import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionMapping;
 
-public class LoginModel extends ActionForm{
+public class Login extends ActionForm{
 
 	private String email;
 	private String password;

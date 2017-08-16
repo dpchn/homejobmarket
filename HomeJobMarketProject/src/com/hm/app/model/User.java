@@ -1,6 +1,6 @@
 package com.hm.app.model;
 
-public class RegisterModel {
+public class User {
 
 	private int id;
 	private String fName;
@@ -9,8 +9,25 @@ public class RegisterModel {
 	private String email;
 	private String password;
 	private int noOfChild;
+	private String temporaryActive;
 	// private enum type {seeker,sitter};
 	
+	public String getPhoneNo() {
+		return phoneNo;
+	}
+
+	public void setPhoneNo(String phoneNo) {
+		this.phoneNo = phoneNo;
+	}
+
+	public String getTemporaryActive() {
+		return temporaryActive;
+	}
+
+	public void setTemporaryActive(String temporaryActive) {
+		this.temporaryActive = temporaryActive;
+	}
+
 	private String type;
 
 	public String getPassword() {

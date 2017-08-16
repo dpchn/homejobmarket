@@ -17,13 +17,16 @@ public class JobPageRedirectAction extends Action{
 			HttpServletResponse response) throws Exception {
 		HttpSession session = request.getSession();
 		System.out.println("Inside jobb page redirect....");
+		try {
 		if(session.getAttribute("type").equals("seeker") && session!=null)
 			return mapping.findForward("seeker");
 		else if(session.getAttribute("type").equals("sitter") && session!=null)
 			return mapping.findForward("sitter");
-		else
+		}catch (Exception e) {
 			return mapping.findForward("error");
-		//return super.execute(mapping, form, request, response);
+		}
+		return mapping.findForward("error");
+		
 	}
 
 }

@@ -26,17 +26,21 @@
 
 	</table>
 	
-	<form action="jobCreateRedirecte.do" method="post">
+	<form action="jobCreateRedirect.do" method="post">
 		<input type="submit" value="Post Job"/>
 	</form>
 	
 	
-	<form action="seekerRedirectToUpdate.do" method="POST">
+	<form action="seekerUpdate.do" method="POST">
 		<input type="submit" value="Profile Update"/>
 	</form>
 	
 	<form action="logout.do" method="POST">
 		<input type="submit" value="Logout"/>
+	</form>
+	
+	<form action="seekerdeactivate.do" method="POST">
+		<input type="submit" value="Account Deactivate"/>
 	</form>
 	
 

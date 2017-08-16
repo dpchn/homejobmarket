@@ -7,14 +7,15 @@
     <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/homeJobMarket</property>
     <property name="hibernate.connection.username">root</property>
     <property name="hibernate.connection.password">dpchn</property>
-    
-    	<mapping resource="com/hm/app/framework/registerMapping.hbm.xml"/> 
- 	 	<mapping resource="com/hm/app/framework/loginMapping.hbm.xml"/>
- 	  	<mapping resource="com/hm/app/framework/jobMapping.hbm.xml"/>
+    <property name="hibernate.enable_lazy_load_no_trans">true</property>
+    	<mapping resource="com/hm/app/framework/user.hbm.xml"/> 
+ 	 	
+ 	  	<mapping resource="com/hm/app/framework/job.hbm.xml"/>
+ 	  	<mapping resource="com/hm/app/framework/application.hbm.xml"/>
  	  
- 	  <mapping class="com.hm.app.model.RegisterModel"/>
- 	  <mapping class="com.hm.app.model.LoginModel"/>
- 	  <mapping class="com.hm.app.model.JobModel"/>
+ 	  <mapping class="com.hm.app.model.User"/>
+ 	  <mapping class="com.hm.app.model.Job"/>
+ 	  <mapping class="com.hm.app.model.Application"/>
  	  
 
   </session-factory>

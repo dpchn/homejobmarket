@@ -2,16 +2,16 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-	<class name="com.hm.app.model.RegisterModel" table="register">
+	<class name="com.hm.app.model.User" table="user">
 		<id name="id" type="int">
 			<column name="id" />
 			<generator class="increment" />
 		</id>
 		<property name="fName" type="string">
-			<column name="fname" length="20" not-null="true" />
+			<column name="f_name" length="20" not-null="true" />
 		</property>
 		<property name="lName" type="string">
-			<column name="lname" />
+			<column name="l_name" />
 		</property>
 		<property name="phoneNo">
 			<column name="phone" length="20" not-null="true" />
@@ -22,13 +22,16 @@
 		<property name="password" type="string">
 			<column name="password" />
 		</property>
-		
+
 		<property name="type">
 			<column name="type" />
 		</property>
-		
+
 		<property name="noOfChild">
-			 <column name="noOfChild" />
+			<column name="no_of_child" />
+		</property>
+		<property name="temporaryActive">
+			<column name="t_active" default="true" not-null="true" />
 		</property>
 
 	</class>

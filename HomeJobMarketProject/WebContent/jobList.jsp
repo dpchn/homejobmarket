@@ -9,12 +9,39 @@
 </head>
 <body>
 	<h1>Job List</h1>
-	<table>
-	<c:forEach items="${joblist}" var="job">
-		<tr>
-			<th>${job.key}</th><td>${job.value}</td>
-		</tr>
-	</c:forEach>
-</table>
+	<c:if test="${joblist.size() > 0 }">
+		<table>
+			<c:forEach items="${joblist}" var="job">
+
+				<tr>
+					<td>
+						<table>
+							<c:forEach items="${job.value}" var="item">
+								<tr>
+								<c:if test="${item.key!='jobId'}">
+									<th>${item.key}</th>
+									<td>${item.value}</td>
+								</c:if>
+								</tr>
+							</c:forEach>
+						</table>
+
+					</td>
+					<td><a href="applyJob.do?jobId=${job.key}">Apply to this
+							job</a></td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<h4>________________________________________________________________________________</h4>
+					</td>
+				</tr>
+
+			</c:forEach>
+		</table>
+	</c:if>
+
+	<c:if test="${joblist.size() < 1 }">
+		<h1>No Job Available</h1>
+	</c:if>
 </body>
 </html>

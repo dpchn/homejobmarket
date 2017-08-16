@@ -6,48 +6,28 @@
 
 <h1>Update Seeker Deatils</h1>
 
-<h:form action="seekerUpdate.do" method="POST">
-	<table>
-		<tr>
-			<td>
-				<table>
-					<tr>
-						<th>First Name :</th>
-					</tr>
-					<tr>
-						<th>Last Name :</th>
-					</tr>
-					<tr>
-						<th>Phone No. :</th>
-					</tr>
-					<tr>
-						<th>No of Child. :</th>
-					</tr>
-					<tr>
-						<th>Email id:</th>
-					</tr>
-				</table>
-			</td>
-			<td>
-				<table>
-					<c:forEach var="item" items="${data}">
-						<tr>
-							<c:if test="${item.key=='email'}">
-								<td><h:text property="${item.key}" value="${item.value}" readonly="readonly"/></td>
-							<td></c:if>
-							<c:if test="${item.key !='email'}">
-							
-								<td><h:text property="${item.key}" value="${item.value}" /></td>
-								<td><font color="red"> <h:errors
-											property="${item.key }" />
-								</font></td>
-							</c:if>
-						</tr>
-					</c:forEach>
-				</table>
-			</td>
+<h:form action="captureSeekerUpdate.do" method="POST">
 
-		</tr>
+	<table>
+		<c:forEach var="item" items="${data}">
+			<tr>
+				<c:if test="${item.key=='email'}">
+					<th>"${item.key}"</th>
+					<td><h:text property="${item.key}" value="${item.value}"
+							readonly="readonly" /></td>
+					
+				</c:if>
+				<c:if test="${item.key !='email'}">
+
+					<th>"${item.key}"</th>
+					<td><h:text property="${item.key}" value="${item.value}" /></td>
+					<td><font color="red"> <h:errors
+								property="${item.key }" />
+					</font></td>
+				</c:if>
+			</tr>
+		</c:forEach>
 	</table>
+
 	<input type="submit" value="Update" />
 </h:form>

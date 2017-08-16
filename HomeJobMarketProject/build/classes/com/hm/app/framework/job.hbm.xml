@@ -2,30 +2,31 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-	<class name="com.hm.app.model.JobModel" table="job">
+	<class name="com.hm.app.model.Job" table="job">
 		<id name="id" type="int">
 			<column name="jobId" />
 			<generator class="increment" />
 		</id>
 		<property name="jobTitle" type="string">
-			<column name="jobTitle" />
+			<column name="job_title" />
 		</property>
 		<property name="jobDes" type="string">
-			<column name="jobDes" />
+			<column name="job_des" />
 		</property>
 		<property name="startDate" type="timestamp">
-			<column name="startDate" />
+			<column name="start_date" />
 		</property>
-		<property name="postedBy">
+		<!-- <property name="postedBy">
 			<column name="postedBy" />
-		</property>
+		</property> -->
 		<property name="endDate" type="timestamp">
-			<column name="endDate" />
+			<column name="end_date" />
 		</property>
 		
 		<property name="payPerHour">
-			<column name="payPerHour" />
+			<column name="pay_per_hour" />
 		</property>
-
+		<many-to-one name="postedBy" class="com.hm.app.model.User" column="posted_by" cascade="all"/>
+   		<!-- <one-to-one name="postedBy" cascade="all"></one-to-one> -->
 	</class>
 </hibernate-mapping>

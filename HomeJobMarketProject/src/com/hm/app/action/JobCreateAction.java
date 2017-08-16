@@ -18,15 +18,19 @@ public class JobCreateAction extends Action {
 		job = (JobForm) form;
 		jobService = new JobService();
 		Integer jobId = 0;
-		if (request.getSession() != null && request.getSession().getAttribute("type").equals("seeker")) {
-
-			jobId = jobService.createJob((Integer) request.getSession().getAttribute("id"), job.getJobTitle(), job.getJobDes(), job.getStartDate(), job.getEndDate(),
-					job.getStartTime(), job.getEndTime(), job.getPayPerHour());
-			if (jobId > 0)
-				return mapping.findForward("success");
+		try {
+			if (request.getSession() != null && request.getSession().getAttribute("type").equals("seeker")) {
+				jobId = jobService.createJob((Integer) request.getSession().getAttribute("id"), job.getJobTitle(),
+						job.getJobDes(), job.getStartDate(), job.getEndDate(), job.getStartTime(), job.getEndTime(),
+						job.getPayPerHour());
+				if (jobId > 0)
+					return mapping.findForward("success");
+				return mapping.findForward("error");
+			} else
+				return mapping.findForward("sitter");
+		} catch (Exception e) {
 			return mapping.findForward("error");
-		} else
-			return mapping.findForward("sitter");
+		}
 
 	}
 }

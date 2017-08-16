@@ -2,25 +2,24 @@ package com.hm.app.action;
 
 import javax.servlet.http.*;
 import org.apache.struts.action.*;
-import java.util.*;
-import java.util.Map.Entry;
 
-import com.hm.app.service.GetJobListService;
+import com.hm.app.service.JobService;
+
+import java.util.*;
 
 public class GetAllJobAction extends Action {
-	GetJobListService getJobList;
+	JobService getJobList = new JobService();
 
 	@Override
 	public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		Map<String, Object> result = getJobList.getAllJob();
-		for(Entry<String, Object> m: result.entrySet())
-			System.out.println(m.getValue());
+
 		if (request.getSession() != null && request.getSession().getAttribute("type").equals("sitter")) {
+			Map result = getJobList.getAllJob((Integer) request.getSession().getAttribute("id"));
 			request.getSession().setAttribute("joblist", result);
 			System.out.println("Inside joblist....action");
 			return mapping.findForward((String) request.getSession().getAttribute("type"));
-		}else {
+		} else {
 			return mapping.findForward("seeker");
 		}
 	}

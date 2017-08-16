@@ -12,6 +12,7 @@
 
 	<table border="1">
 		<c:forEach var="item" items="${data}">
+			
 			<tr>
 				<th>${item.key}:</th>
 				<td>${item.value}</td>
@@ -31,6 +32,10 @@
 
 	<form action="logout.do" method="POST">
 		<input type="submit" value="Logout" />
+	</form>
+	
+	<form action="sitterdeactivate.do" method="POST">
+		<input type="submit" value="Account Deactivate"/>
 	</form>
 
 
