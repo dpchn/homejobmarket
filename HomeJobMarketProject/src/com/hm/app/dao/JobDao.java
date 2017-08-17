@@ -15,7 +15,6 @@ public class JobDao {
 		Session session = CreateSession.sessionFactory.openSession();
 		Transaction transaction = session.beginTransaction();
 		System.out.println("Job Dao...");
-
 		try {
 			Integer id = (Integer) session.save(object);
 			transaction.commit();
@@ -42,28 +41,13 @@ public class JobDao {
 	/*
 	 * Get all job list
 	 */
-	public Map<Object, Object> fetchAllJob(List jobIds) {
+	public List<Job> fetchAllJob() {
 		Session session = CreateSession.sessionFactory.openSession();
 		Transaction transaction = session.beginTransaction();
 		List<Job> list = session.createQuery("from com.hm.app.model.Job").list();
-		Map<Object, Object> joblist = new HashMap<>();
-		for (Job l : list) {
-			if (!jobIds.contains(l.getId())) {
-				Map obj = new HashMap<>();
-				obj.put("jobId", l.getId());
-				obj.put("jobTitle", l.getJobTitle());
-				obj.put("jobDes", l.getJobDes());
-				obj.put("startDate", l.getStartDate());
-				obj.put("endDate", l.getEndDate());
-				obj.put("payPerHour", l.getPayPerHour());
-				obj.put("postedBy", l.getPostedBy());
-				joblist.put(l.getId(), obj);
-			}
-		}
-
 		transaction.commit();
 		session.close();
-		return joblist;
+		return list;
 
 	}
 

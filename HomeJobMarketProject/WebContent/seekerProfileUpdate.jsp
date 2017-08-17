@@ -6,10 +6,10 @@
 
 <h1>Update Seeker Deatils</h1>
 
-<h:form action="captureSeekerUpdate.do" method="POST">
+<h:form action="/seeker/captureUpdate.do" method="POST">
 
 	<table>
-		<c:forEach var="item" items="${data}">
+		<c:forEach var="item" items="${update}">
 			<tr>
 				<c:if test="${item.key=='email'}">
 					<th>"${item.key}"</th>

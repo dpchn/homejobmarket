@@ -18,10 +18,10 @@ public class GetAllJobAction extends Action {
 			Map result = getJobList.getAllJob((Integer) request.getSession().getAttribute("id"));
 			request.getSession().setAttribute("joblist", result);
 			System.out.println("Inside joblist....action");
-			return mapping.findForward((String) request.getSession().getAttribute("type"));
-		} else {
-			return mapping.findForward("seeker");
+			return mapping.findForward("success");
 		}
+		return mapping.findForward("error");
+		
 	}
 
 }

@@ -2,7 +2,7 @@
 
 <h1>Login Page</h1>
 
-<html:form action="/login">
+<html:form action="auth/captureLogin.do">
 	Email : <html:text property="email" />
 	<html:errors property="email"/>
 	<br>

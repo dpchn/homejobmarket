@@ -2,19 +2,14 @@ package com.hm.app.action;
 
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 
-import org.apache.struts.action.Action;
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.*;
 
 import com.hm.app.form.LoginForm;
 import com.hm.app.service.UserService;
 
-public class CaptureLoginAction extends Action{
+public class LoginCaptureAction extends Action{
 	UserService login = new UserService();
 
 	@Override
@@ -31,17 +26,16 @@ public class CaptureLoginAction extends Action{
 		result.remove("id");
 		httpSession.setAttribute("data", result);
 
-		try {
 			if (type.equals("seeker") && result != null) {
+				//user.reset(mapping, request);
 				httpSession.setAttribute("type", "seeker");
 				return mapping.findForward("seeker");
 			} else if (result != null && type.equals("sitter")) {
 				httpSession.setAttribute("type", "sitter");
+				//user.reset(mapping, request);
 				return mapping.findForward("sitter");
 			}
-		} catch (Exception e) {
-			return mapping.findForward("error");
-		}
+		System.out.println("Error login");
 		return mapping.findForward("error");
 
 	}

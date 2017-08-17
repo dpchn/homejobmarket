@@ -22,7 +22,7 @@
 
 	</table>
 
-	<form action="sitterRedirectToUpdate.do" method="POST">
+	<form action="update.do" method="POST">
 		<input type="submit" value="Profile Update" />
 	</form>
 
@@ -34,7 +34,7 @@
 		<input type="submit" value="Logout" />
 	</form>
 	
-	<form action="sitterdeactivate.do" method="POST">
+	<form action="accountDeactivate.do" method="POST">
 		<input type="submit" value="Account Deactivate"/>
 	</form>
 

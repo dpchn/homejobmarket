@@ -4,6 +4,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.format.*;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.hm.app.dao.ApplicationDao;
@@ -26,8 +28,8 @@ public class JobService {
 	public Integer createJob(Integer id, String jobTitle, String jobDes, String startDate, String endDate,
 			String startTime, String endTime, float payPerHour) {
 
-		SimpleDateFormat startDateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm");
-		SimpleDateFormat endDateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm");
+		SimpleDateFormat startDateFormat = new SimpleDateFormat("dd-mm-yyyy hh:mm");
+		SimpleDateFormat endDateFormat = new SimpleDateFormat("dd-mm-yyyy hh:mm");
 
 		System.out.println("stardtime :" + startTime);
 		System.out.println("endtime :" + endTime);
@@ -61,7 +63,24 @@ public class JobService {
 
 	public Map getAllJob(Integer memberId) {
 		ApplicationDao applicationDao = new ApplicationDao();
-		return jobDao.fetchAllJob(applicationDao.getAppliedJob(memberId));
+		List<Job> job =  jobDao.fetchAllJob();
+		List<Integer> jobIds = applicationDao.getAppliedJob(memberId);
+		Map<Object, Object> joblist = new HashMap<>();
+		for (Job l : job) {
+			if (!jobIds.contains(l.getId())) {
+				Map<String, Object> obj = new HashMap<>();
+				obj.put("jobId", l.getId());
+				obj.put("jobTitle", l.getJobTitle());
+				obj.put("jobDes", l.getJobDes());
+				obj.put("startDate", l.getStartDate());
+				obj.put("endDate", l.getEndDate());
+				obj.put("payPerHour", l.getPayPerHour());
+				obj.put("postedBy", l.getPostedBy());
+				joblist.put(l.getId(), obj);
+			}
+		}
+		
+		return joblist;
 	}
 
 	/*

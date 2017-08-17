@@ -1,7 +1,7 @@
 <%@taglib prefix="html" uri="http://struts.apache.org/tags-html"%>
 
 <h1>Wecome to Registration Page</h1>
-<html:form action="/reg" method="POST" onsubmit="return validateregister(this);">
+<html:form action="/visitor/reg" method="POST" onsubmit="return validateregister(this);">
 <html:javascript formName="register"/>
 	First Name :<html:text property="fName" />
 		<font color="red">

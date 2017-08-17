@@ -4,14 +4,14 @@
 
 <h1>Update Sitter Details</h1>
 
-<form action="sitterUpdate.do" method="POST">
+<html:form action="/sitter/captureUpdate.do" method="POST">
 	
 				<table>
 					<c:forEach var="item" items="${data}">
 						<tr>
 							<c:if test="${item.key=='email'}">
 								<th>"${item.key}"</th><td><html:text property="${item.key}" 
-										value="${item.value}" readonly="readonly" /></td>
+										value="${email}" readonly="readonly" /></td>
 							</c:if>
 							<c:if test="${item.key !='email'}">
 								<th>"${item.key}"</th><td><html:text property="${item.key}" 
@@ -21,4 +21,4 @@
 					</c:forEach>
 				</table>
 	<input type="submit" value="Update" />
-</form>
+</html:form>

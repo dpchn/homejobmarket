@@ -26,15 +26,15 @@ public class RegisterAction extends Action {
 		registerService = new UserService();
 		int id = registerService.addUser(user.getfName(), user.getlName(), user.getphoneNo(), user.getEmail(),
 				user.getPassword(), user.getType(), user.getNoChild());
-		try {
+		
 			if (id > 0) {
 				System.out.println(user.getfName());
-				HashMap data = new HashMap();
+				HashMap<String, Object> data = new HashMap();
 				data.put("fName", user.getfName());
 				data.put("lName", user.getlName());
 				data.put("phone", user.getphoneNo());
 				data.put("email", user.getEmail());
-				data.put("noOfChild", String.valueOf(user.getNoChild()));
+				data.put("noOfChild", user.getNoChild());
 				HttpSession httpSession = request.getSession();
 
 				httpSession.setAttribute("type", user.getType());
@@ -42,14 +42,14 @@ public class RegisterAction extends Action {
 				httpSession.setAttribute("id", id);
 				System.out.println("Id is :" + id);
 				
+			//	user.reset(mapping, request);
+				
 				if (user.getType().equals("seeker"))
 					return mapping.findForward("seeker");
 				else if (user.getType().equals("sitter"))
 					return mapping.findForward("sitter");
 			}
-		} catch (Exception e) {
-			return mapping.findForward("error");
-		}
+		
 		return mapping.findForward("error");
 	}
 }

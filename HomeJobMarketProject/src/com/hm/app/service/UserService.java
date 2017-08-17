@@ -1,6 +1,7 @@
 package com.hm.app.service;
 
 
+import java.util.HashMap;
 import java.util.Map;
 
 import com.hm.app.dao.UserDao;
@@ -35,7 +36,17 @@ public class UserService {
 	
 	public Map<String, Object> checkUser(String email, String password) {
 		System.out.println("insoed servie login...");
-		return userDao.loginUser(email, password);
+		user =  userDao.loginUser(email, password);
+		Map<String, Object> details = new HashMap<String, Object>();
+		details.put("fName", user.getfName());
+		details.put("lName", user.getlName());
+		details.put("phone", user.getphoneNo());
+		details.put("email", user.getEmail());
+		details.put("noOfChild", user.getNoOfChild());
+		details.put("id", user.getId());		
+		details.put("type", user.getType().toString());
+		
+		return details;
 	}
 
 	

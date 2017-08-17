@@ -43,5 +43,10 @@
 	<c:if test="${joblist.size() < 1 }">
 		<h1>No Job Available</h1>
 	</c:if>
+	
+	
+	<form action="sitterProfile.do">
+		<input type="submit" value="Home" />
+	</form>
 </body>
 </html>

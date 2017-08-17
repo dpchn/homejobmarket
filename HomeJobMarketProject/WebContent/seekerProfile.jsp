@@ -26,12 +26,12 @@
 
 	</table>
 	
-	<form action="jobCreateRedirect.do" method="post">
+	<form action="job.do" method="post">
 		<input type="submit" value="Post Job"/>
 	</form>
 	
 	
-	<form action="seekerUpdate.do" method="POST">
+	<form action="update.do" method="POST">
 		<input type="submit" value="Profile Update"/>
 	</form>
 	
@@ -39,10 +39,9 @@
 		<input type="submit" value="Logout"/>
 	</form>
 	
-	<form action="seekerdeactivate.do" method="POST">
+	<form action="accountDeactivate.do" method="POST">
 		<input type="submit" value="Account Deactivate"/>
 	</form>
-	
 
 </body>
 </html>

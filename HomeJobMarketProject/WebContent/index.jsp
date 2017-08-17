@@ -13,7 +13,7 @@
 		<input type="submit" value="Register">
 	</form>
 	<br>
-	<form action="/HomeJobMarketProject/login.jsp">
+	<form action="auth/login.do">
 		<input type="submit" value="Login">
 	</form>
 </body>
