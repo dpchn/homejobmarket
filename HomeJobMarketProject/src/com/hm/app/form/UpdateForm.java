@@ -16,6 +16,8 @@ public class UpdateForm  extends ActionForm{
 	private String phone;
 	private String email;
 	private int noOfChild;
+	
+	
 	public int getId() {
 		return id;
 	}
@@ -23,6 +25,7 @@ public class UpdateForm  extends ActionForm{
 		this.id = id;
 	}
 	public String getfName() {
+		
 		return fName;
 	}
 	public void setfName(String fName) {
@@ -64,8 +67,20 @@ public class UpdateForm  extends ActionForm{
 		if(lName==null || lName.isEmpty() || !lName.matches(pattern.namePattern)) {
 			errors.add("lName", new ActionMessage("lName"));
 		}
+		if(phone==null || phone.isEmpty() || !phone.matches(pattern.phonePattern)) {
+			errors.add("phone", new ActionMessage("phone"));
+		}
 		
 		return errors;
+	}
+	
+	@Override
+	public void reset(ActionMapping mapping, HttpServletRequest request) {
+		fName=null;
+		lName = null;
+		phone = null;
+		noOfChild = 0;
+		super.reset(mapping, request);
 	}
 
 }

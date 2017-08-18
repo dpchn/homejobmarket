@@ -23,6 +23,7 @@ public class UserDao {
 			session.close();
 			return id;
 		} catch (Exception e) {
+			System.out.println(e.getMessage());
 			e.printStackTrace();
 			transaction.rollback();
 			session.close();
@@ -30,15 +31,42 @@ public class UserDao {
 		}
 	}
 
-	/*
+	/*********************************************************************************
+	 * Check User Exist or Not
+	 *********************************************************************************
+	 */
+		public boolean isExist(String email) {
+			Session session = CreateSession.sessionFactory.openSession();
+			org.hibernate.Query query = session.createQuery("from com.hm.app.model.User where email = :email");
+			query.setParameter("email", email);
+			return query.uniqueResult()!=null;
+		}
+	
+		
+		/*********************************************************************************
+		 * Is user accoutn Active ?
+		 *********************************************************************************
+		 */
+		public String isActive(String email) {
+			Session session = CreateSession.sessionFactory.openSession();
+			org.hibernate.Query query = session.createQuery("from com.hm.app.model.User where email = :email");
+			query.setParameter("email", email);
+			User u = (User)query.uniqueResult();
+			return u.getTemporaryActive();
+				
+		}
+	
+	
+	/***************************************************************
 	 * Find User By id
+	 * **************************************************************
 	 */
 
 	public User findId(Integer id) {
 		Session session = CreateSession.sessionFactory.openSession();
-		User registerModel = (User) session.get(User.class, id);
+		User user = (User) session.get(User.class, id);
 		session.close();
-		return registerModel;
+		return user;
 	}
 
 	/*

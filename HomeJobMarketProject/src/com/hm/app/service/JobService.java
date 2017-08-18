@@ -22,8 +22,9 @@ public class JobService {
 	ApplicationDao applicationDao= new ApplicationDao();
 	Application application = new Application();
 
-	/*
+	/**************************************************************************************
 	 * Create Job
+	 **************************************************************************************
 	 */
 	public Integer createJob(Integer id, String jobTitle, String jobDes, String startDate, String endDate,
 			String startTime, String endTime, float payPerHour) {
@@ -31,18 +32,11 @@ public class JobService {
 		SimpleDateFormat startDateFormat = new SimpleDateFormat("dd-mm-yyyy hh:mm");
 		SimpleDateFormat endDateFormat = new SimpleDateFormat("dd-mm-yyyy hh:mm");
 
-		System.out.println("stardtime :" + startTime);
-		System.out.println("endtime :" + endTime);
-		System.out.println("stardate :" + startDate);
-		System.out.println("enddate :" + endDate);
-		System.out.println("stardate :" + startDateFormat);
-		System.out.println("enddate :" + endDateFormat);
 		Date d1 = null, d2 = null;
 		try {
 			d1 = startDateFormat.parse(startDate + " " + startTime);
 			d2 = endDateFormat.parse(endDate + " " + startTime);
 		} catch (ParseException e) {
-
 			e.printStackTrace();
 		}
 
@@ -57,8 +51,9 @@ public class JobService {
 		return jobDao.add(jobModel);
 	}
 
-	/*
+	/**************************************************************************************
 	 * Get Job list
+	 **************************************************************************************
 	 */
 
 	public Map getAllJob(Integer memberId) {
@@ -75,7 +70,7 @@ public class JobService {
 				obj.put("startDate", l.getStartDate());
 				obj.put("endDate", l.getEndDate());
 				obj.put("payPerHour", l.getPayPerHour());
-				obj.put("postedBy", l.getPostedBy());
+				obj.put("postedBy", l.getPostedBy().getfName());
 				joblist.put(l.getId(), obj);
 			}
 		}
@@ -83,8 +78,12 @@ public class JobService {
 		return joblist;
 	}
 
-	/*
+	
+	
+
+	/*************************************************************************************
 	 * Apply Job
+	 *************************************************************************************
 	 */
 
 	public Integer applyJob(Integer jobId, Integer memberId) {

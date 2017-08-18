@@ -16,23 +16,24 @@ import com.hm.app.service.UserService;
 
 public class UpdateCaptureAction extends Action {
 	UpdateForm updateForm;
-	UserService updateService =new UserService();
+	UserService updateService = new UserService();
+
 	@Override
 	public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		System.out.println("Inside Update Capture Action....");
 		updateForm = (UpdateForm) form;
-		System.out.println("No of childs in action ::"+ updateForm.getNoChild());
+		System.out.println("No of childs in action ::" + updateForm.getNoChild());
 		boolean res = false;
-		try {
-			if (request.getSession() != null && request.getSession().getAttribute("type").equals("seeker")) {
+			request.getSession().removeAttribute("updateData");
+			if (request.getSession() != null ) //{
 				res = updateService.updateData((Integer) request.getSession().getAttribute("id"), updateForm.getfName(),
 						updateForm.getlName(), updateForm.getEmail(), updateForm.getPhone(), updateForm.getNoChild());
 
-			} else if (request.getSession() != null && request.getSession().getAttribute("type").equals("sitter")) {
+			/*} else if (request.getSession() != null && request.getSession().getAttribute("type").equals("sitter")) {
 				res = updateService.updateData((Integer) request.getSession().getAttribute("id"), updateForm.getfName(),
 						updateForm.getlName(), updateForm.getEmail(), updateForm.getPhone(), updateForm.getNoChild());
-			}
+			}*/
 
 			if (res) {
 				Map<String, Object> updatedData = new HashMap();
@@ -46,13 +47,9 @@ public class UpdateCaptureAction extends Action {
 				request.getSession().setAttribute("data", updatedData);
 				return mapping.findForward((String) request.getSession().getAttribute("type"));
 			}
-		} catch (Exception e) {
-			System.out.println("Exception in Update Action "+ e.getMessage());
-			return mapping.findForward("error");
-		}
-		return mapping.findForward("error");
+			return mapping.findForward("success");
+		
 
 	}
-
 
 }

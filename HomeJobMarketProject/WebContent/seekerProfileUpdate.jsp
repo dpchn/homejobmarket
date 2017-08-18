@@ -9,7 +9,7 @@
 <h:form action="/seeker/captureUpdate.do" method="POST">
 
 	<table>
-		<c:forEach var="item" items="${update}">
+		<c:forEach var="item" items="${updateData}">
 			<tr>
 				<c:if test="${item.key=='email'}">
 					<th>"${item.key}"</th>

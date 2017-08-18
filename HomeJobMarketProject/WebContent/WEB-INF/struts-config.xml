@@ -17,13 +17,16 @@
 	<action-mappings>
 		<action path="/error" type="org.apache.struts.actions.ForwardAction"
 			parameter="/WEB-INF/error.jsp" />
+			
+		<action path="/auth/reg" name="login" validate="false"  type="com.hm.app.action.RegisterAction"> 
+			<forward name="success" path="/register.jsp" />
+			 </action>
 
-
-		<action path="/reg" name="register" type="com.hm.app.action.RegisterAction"
+		<action path="/auth/captureReg" name="register" type="com.hm.app.action.RegisterCaptureAction"
 			scope="request" validate="true" input="/register.jsp">
-			<forward name="seeker" path="/seekerProfile.jsp" />
-			<forward name="sitter" path="/sitterProfile.jsp" />
-			<forward name="error" path="/WEB-INF/error.jsp" />
+			<forward name="seeker" path="/seekerProfile.jsp"  redirect="true"/>
+			<forward name="sitter" path="/sitterProfile.jsp" redirect="true"/>
+			<forward name="error" path="/userExist.jsp" redirect="true" />
 		</action>
 
 
@@ -47,13 +50,13 @@
 
 		<action path="/seeker/logout" type="com.hm.app.action.LogoutAction"
 			scope="request">
-			<forward name="success" path="/index.jsp" redirect="true" />
+			<forward name="success" path="/index.jsp"  />
 			<forward name="error" path="/WEB-INF/error.jsp" />
 		</action>
 		
 		<action path="/sitter/logout" type="com.hm.app.action.LogoutAction"
 			scope="request">
-			<forward name="success" path="/index.jsp"  redirect="true" />
+			<forward name="success" path="/index.jsp"   />
 			<forward name="error" path="/WEB-INF/error.jsp" />
 		</action>
 
@@ -95,7 +98,7 @@
 		</action>
 
 		<!-- ====================================Get All Job========================================================== -->
-		<action path="/auth/jobList" type="com.hm.app.action.JobAction">
+		<action path="/sitter/jobList" type="com.hm.app.action.JobAction">
 			<forward name="/authsuccess" path="/sitter/jobList.do" />
 		</action>
 				
@@ -119,15 +122,15 @@
 
 		<!-- ================================Account Deactivate============================================= -->
 		<!-- Account Dactivate -->
-		<action path="/accountDeactivate" type="com.hm.app.action.DeactivateAction"
+		<action path="/seeker/accountDeactivate" type="com.hm.app.action.DeactivateAction"
 			scope="request" validate="false">
 			<forward name="success" path="/index.jsp" />
 			<forward name="error" path="/error.do" />
 		</action>
 
-		<action path="/accountDeactivate" type="com.hm.app.action.DeactivateAction"
+		<action path="sitter/accountDeactivate" type="com.hm.app.action.DeactivateAction"
 			scope="request" validate="false" input="/sitterProfile.jsp">
-			<forward name="success" path="/index.jsp" />
+			<forward name="success" path="/index.jsp"  redirect="true"/>
 			<forward name="error" path=" /WEB-INF/error.jsp" />
 		</action>
 	</action-mappings>

@@ -11,6 +11,17 @@ public class UserService {
 	UserDao userDao = new UserDao();
 	User user = new User();
 	
+	
+	public boolean isExit(String email) {
+		return userDao.isExist(email);
+	}
+	
+	public boolean isActive(String email) {
+		if(userDao.isActive(email).equals("false"))
+			return false;
+		return true;
+	}
+	
 	/*
 	 * Register Method
 	 */
@@ -25,8 +36,10 @@ public class UserService {
 		user.setType(type);
 		user.setNoOfChild(noChild);
 		user.setTemporaryActive("true");
-		
-		return userDao.add(user);
+		if(userDao.isExist(email))
+			return userDao.add(user);
+		else
+			return 0;
 	}
 	
 	

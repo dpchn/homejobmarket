@@ -2,6 +2,7 @@ package com.hm.app.action;
 
 import java.util.Map;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.http.*;
 
 import org.apache.struts.action.*;
@@ -16,8 +17,13 @@ public class LoginCaptureAction extends Action{
 	public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		System.out.println("inside capture login action....");
-
+		RequestDispatcher rd;
 		LoginForm user = (LoginForm) form;
+		if(!login.isExit(user.getEmail())) {
+			request.getRequestDispatcher("/login.jsp").forward(request, response);
+		}else if(!login.isActive(user.getEmail())) {
+			request.getRequestDispatcher("/accountDeactivate.jsp").forward(request, response);
+		}
 		Map<String, Object> result = login.checkUser(user.getEmail(), user.getPassword());
 		HttpSession httpSession = request.getSession();
 		String type = (String) result.get("type");

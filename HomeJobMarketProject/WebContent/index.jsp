@@ -9,7 +9,7 @@
 <body>
 	<h1>Weclome to Home Job Market Project</h1>
 
-	<form action="/HomeJobMarketProject/register.jsp">
+	<form action="auth/reg.do">
 		<input type="submit" value="Register">
 	</form>
 	<br>

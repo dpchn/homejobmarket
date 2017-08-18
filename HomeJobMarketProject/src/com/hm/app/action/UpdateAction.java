@@ -15,29 +15,26 @@ public class UpdateAction extends Action {
 			HttpServletResponse response) throws Exception {
 		System.out.println("Inside Update Action...");
 		UpdateForm updateForm = (UpdateForm) form;
-		updateForm.setfName("asfsdf");
-		updateForm.setlName("sdsdf");
-		updateForm.setPhone("asdfsdf");
-		updateForm.setEmail("some email");
-		updateForm.setNoChild(3);
+		System.out.println("Inside Update Action :"+ updateForm.getNoChild());
+		System.out.println("Inside Update Action :"+ updateForm.getfName());
 		Map<String, Object> data = (Map)request.getSession().getAttribute("data");
-		Map<String, Object> update = new HashMap<>();
-		if (request.getSession().getAttribute("update") == null
-				|| request.getSession().getAttribute("data").equals("")) {
+		Map<String, Object> updateData = new HashMap();
+		if (request.getSession().getAttribute("updateData") == null
+				|| request.getSession().getAttribute("updateData").equals("")) {
+			System.out.println("Checking data in data ins Update");
 			for (String key : data.keySet()) {
-				update.put(key, data.get(key));
+				updateData.put(key, data.get(key));
 			}
 
 		}else {
-			update.put("fName", updateForm.getfName());
-			update.put("lName", updateForm.getlName());
-			update.put("email", updateForm.getEmail());
-			update.put("noOfChild", updateForm.getNoChild());
-			update.put("phone", updateForm.getPhone());
-			
+			updateData.put("fName", updateForm.getfName());
+			updateData.put("lName", updateForm.getlName());
+			updateData.put("email", updateForm.getEmail());
+			updateData.put("noOfChild", updateForm.getNoChild());
+			updateData.put("phone", updateForm.getPhone());
 		}
 
-		request.getSession().getAttribute("update");
+		request.getSession().setAttribute("updateData", updateData);
 		return mapping.findForward("success");
 	}
 
