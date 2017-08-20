@@ -7,8 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>Your account has been Deactivated Please Contact to Admin !</h1>
-
- <p>Either <a href="/index.jsp">Go to home</a>
+<h1 >Wrong Password</h1>
 </body>
 </html>

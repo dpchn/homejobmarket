@@ -1,6 +1,8 @@
 package com.hm.app.action;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.*;
@@ -13,28 +15,32 @@ public class UpdateAction extends Action {
 	@Override
 	public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		System.out.println("Inside Update Action...");
+		System.out.println("Inside Update Action...Fisrt ");
 		UpdateForm updateForm = (UpdateForm) form;
-		System.out.println("Inside Update Action :"+ updateForm.getNoChild());
-		System.out.println("Inside Update Action :"+ updateForm.getfName());
-		Map<String, Object> data = (Map)request.getSession().getAttribute("data");
-		Map<String, Object> updateData = new HashMap();
+		//System.out.println("Inside Update Action :"+ request.getSession().getAttribute("updateData"));
+		//System.out.println("Inside Update Action :"+ request.getSession().getAttribute("updateData").equals(""));
+	
+		List<Integer> data = (List<Integer>)request.getSession().getAttribute("data");
+		List<Object> updatelist = new ArrayList<>();
 		if (request.getSession().getAttribute("updateData") == null
 				|| request.getSession().getAttribute("updateData").equals("")) {
 			System.out.println("Checking data in data ins Update");
-			for (String key : data.keySet()) {
-				updateData.put(key, data.get(key));
-			}
-
+			System.out.println(data);
+			updatelist.addAll(data);
+			
 		}else {
-			updateData.put("fName", updateForm.getfName());
-			updateData.put("lName", updateForm.getlName());
-			updateData.put("email", updateForm.getEmail());
-			updateData.put("noOfChild", updateForm.getNoChild());
-			updateData.put("phone", updateForm.getPhone());
+			System.out.println("Else");
+			Map<String, Object> obj = new HashMap<>();
+			obj.put("fName", updateForm.getfName());
+			obj.put("lName", updateForm.getlName());
+			obj.put("email", updateForm.getEmail());
+			obj.put("noOfChild", updateForm.getNoChild());
+			obj.put("phone", updateForm.getPhone());
+			updatelist.add(obj);
+			System.out.println(updatelist);
 		}
 
-		request.getSession().setAttribute("updateData", updateData);
+		request.getSession().setAttribute("updateData", updatelist);
 		return mapping.findForward("success");
 	}
 

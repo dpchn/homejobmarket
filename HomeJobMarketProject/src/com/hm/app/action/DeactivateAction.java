@@ -21,7 +21,7 @@ public class DeactivateAction extends Action{
 		}
 		if(request.getSession()!=null) {
 			Integer id = (Integer)request.getSession().getAttribute("id");
-			boolean result= user.deActivate(id);
+			boolean result= user.deActivate(id,(String)request.getSession().getAttribute("type") );
 			if(result) {
 				request.getSession().removeAttribute("type");
 				request.getSession().removeAttribute("data");

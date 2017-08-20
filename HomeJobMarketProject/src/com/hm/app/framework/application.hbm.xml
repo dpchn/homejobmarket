@@ -7,13 +7,9 @@
 			<column name="app_id" />
 			<generator class="increment" />
 		</id>
-		<!-- <property name="applyBy">
-			<column name="apply_by" />
+		 <property name="temporaryActive">
+			<column name="t_active" />
 		</property>
-		
-		<property name="jobId" >
-			<column name="job_id" />
-		</property> -->
 		
 		<many-to-one name="applyBy" class="com.hm.app.model.User" column="apply_by" cascade="all" />
 		<many-to-one name="jobId" class="com.hm.app.model.Job" column="job_id" cascade="all" />

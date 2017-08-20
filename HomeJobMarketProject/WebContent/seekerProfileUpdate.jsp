@@ -11,21 +11,30 @@
 	<table>
 		<c:forEach var="item" items="${updateData}">
 			<tr>
-				<c:if test="${item.key=='email'}">
-					<th>"${item.key}"</th>
-					<td><h:text property="${item.key}" value="${item.value}"
-							readonly="readonly" /></td>
-					
-				</c:if>
-				<c:if test="${item.key !='email'}">
-
-					<th>"${item.key}"</th>
-					<td><h:text property="${item.key}" value="${item.value}" /></td>
-					<td><font color="red"> <h:errors
-								property="${item.key }" />
-					</font></td>
-				</c:if>
+				<th>First Name:</th>
+					<td><h:text property="fName" value="${item.fName}" /></td>
+					<td><font color="red"> <h:errors property="fName" /></font></td>
 			</tr>
+			<tr>
+					<th>Last Name:</th>
+					<td><h:text property="lName" value="${item.lName}" /></td>
+					<td><font color="red"> <h:errors property="lName" /></font></td>
+			</tr>
+			<tr>
+					<th>Mobile No:</th>
+					<td><h:text property="phone" value="${item.phone}" /></td>
+					<td><font color="red"> <h:errors property="phone" /></font></td>
+			</tr>
+			<tr>	
+					<th>No of Child:</th>
+					<td><h:text property="noOfChild" value="${item.noOfChild}" /></td>
+					<td><font color="red"> <h:errors property="noOfChild" /></font></td>
+			</tr>
+			<tr>
+					<th>Email Id:</th>
+					<td><h:text property="email" value="${item.email}"  readonly="true"/></td>
+			</tr>
+				
 		</c:forEach>
 	</table>
 

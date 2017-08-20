@@ -9,7 +9,16 @@ public class Job {
 	private Date startDate;
 	private Date endDate;
 	private User postedBy;
+	private String temporaryActive;
 	
+	public String getTemporaryActive() {
+		return temporaryActive;
+	}
+
+	public void setTemporaryActive(String temporaryActive) {
+		this.temporaryActive = temporaryActive;
+	}
+/*
 	public Job() {
 		
 	}
@@ -22,7 +31,7 @@ public class Job {
 		this.postedBy = postedBy;
 		
 	}
-
+*/
 	public User getPostedBy() {
 		return postedBy;
 	}

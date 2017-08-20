@@ -24,39 +24,51 @@
 
 		<action path="/auth/captureReg" name="register" type="com.hm.app.action.RegisterCaptureAction"
 			scope="request" validate="true" input="/register.jsp">
-			<forward name="seeker" path="/seekerProfile.jsp"  redirect="true"/>
-			<forward name="sitter" path="/sitterProfile.jsp" redirect="true"/>
+			<forward name="seeker" path="/seeker/seekerProfile.do"  redirect="true"/>
+			<forward name="sitter" path="/sitter/sitterProfile.do" redirect="true"/>
 			<forward name="error" path="/userExist.jsp" redirect="true" />
 		</action>
 
 
 		<action path="/auth/login" name="login" validate="false"  type="com.hm.app.action.LoginAction"> 
 			<forward name="success" path="/login.jsp" /> </action>
-
+		
+		<action path="/auth/usernotexist" name="login" validate="false"  type="com.hm.app.action.LoginAction"> 
+			<forward name="success" path="/usernotexist.jsp" redirect="true"/> </action>
+			
 		<action path="/auth/captureLogin" name="login"
 			type="com.hm.app.action.LoginCaptureAction" validate="true" input="/login.jsp">
 			<forward name="seeker" path="/seeker/seekerProfile.do" redirect="true" />
 			<forward name="sitter" path="/sitter/sitterProfile.do" redirect="true" />
-			<forward name="error" path="/error.do" />
+			<forward name="notexist" path="/auth/usernotexist.do" redirect="true" />
+			<forward name="notactive" path="/accountDeactivate.jsp" redirect="true" />
+			<forward name="error" path="/auth/wrongPassword.do" redirect="true"/>
 		</action>
-
+		<action path="/auth/wrongPassword" name="login" validate="false"  type="com.hm.app.action.LoginAction"> 
+			<forward name="success" path="/wrongPassword.jsp" /> </action>
+	
+<!-- 
 		<action path="/seeker/seekerProfile" type="org.apache.struts.actions.ForwardAction"
-			parameter="/seekerProfile.jsp" />
-			
-		<action path="/sitter/sitterProfile" type="org.apache.struts.actions.ForwardAction"
-			parameter="/sitterProfile.jsp" />
+			parameter="/seekerProfile.jsp" /> -->
+		<action path="/seeker/seekerProfile" type="com.hm.app.action.SeekerProfileRedirectAction" validate="false">
+			<forward name="success" path="/seekerProfile.jsp" />
+		</action>
+		
+		<action path="/sitter/sitterProfile" type="com.hm.app.action.SitterProfileRedirectAction" validate="false">
+			<forward name="success" path="/sitterProfile.jsp" />
+		</action>
 
 		<!-- =================================Logout================================================ -->
 
 		<action path="/seeker/logout" type="com.hm.app.action.LogoutAction"
 			scope="request">
-			<forward name="success" path="/index.jsp"  />
+			<forward name="success" path="/index.jsp"  redirect="true"/>
 			<forward name="error" path="/WEB-INF/error.jsp" />
 		</action>
 		
 		<action path="/sitter/logout" type="com.hm.app.action.LogoutAction"
 			scope="request">
-			<forward name="success" path="/index.jsp"   />
+			<forward name="success" path="/index.jsp"  redirect="true" />
 			<forward name="error" path="/WEB-INF/error.jsp" />
 		</action>
 
@@ -75,14 +87,13 @@
 			
 		<action path="/seeker/captureUpdate" name="update" validate="true"
 			type="com.hm.app.action.UpdateCaptureAction" input="/seeker/update.do">
-			<forward name="seeker" path="/seeker/seekerProfile.do" />
-			<forward name="sitter" path="/sitter/sitterProfile.do" />
+			<forward name="success" path="/seeker/seekerProfile.do" />
 		</action>
 		
 		<action path="/sitter/captureUpdate" name="update" validate="true"
 			type="com.hm.app.action.UpdateCaptureAction" input="/sitter/update.do">
-			<forward name="seeker" path="/seeker/seekerProfile.do" />
-			<forward name="sitter" path="/sitter/sitterProfile.do" />
+			<!-- <forward name="seeker" path="/seeker/seekerProfile.do" /> -->
+			<forward name="success" path="/sitter/sitterProfile.do" />
 		</action>
 		<!--==================================================================================== -->
 
@@ -96,6 +107,41 @@
 			<forward name="success" path="/seeker/seekerProfile.do" />
 			<forward name="error" path="/error.do" />
 		</action>
+		
+		<!-- ========================Show Posted Job And Delete========================= -->
+		<action path="/seeker/showPostedJob" type="com.hm.app.action.ShowPostedJobAction" validate="false" scope="request" input="/seeker/seekerProfile.do">
+			<forward name="success" path="/deleteJob.jsp"/>
+		</action>
+		
+		<action path="/seeker/deleteJob" name="apply"
+			type="com.hm.app.action.DeleteJobCaptureAction" scope="request" validate="false"
+			input="/deleteJob.jsp">
+			<forward name="error" path="/error.do" />
+			<forward name="success" path="/seeker/showPostedJob.do"/>
+		</action>
+		
+		<action path="/seeker/showApplicant" type="com.hm.app.action.showApplicantAction" validate="false" scope="request" input="/seeker/deleteJob.do">
+			<forward name="success" path="/seeker/showCaptureApplicant.do"/>
+		</action>
+		
+		<action path="/seeker/showCaptureApplicant"  name="apply" type="com.hm.app.action.ShowApplicantCaptureAction" validate="false" scope="request" input="/seeker/showApplicant">
+			<forward name="success" path="/showApplicants.jsp"/>
+		</action>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<!--======================================= Sitter Operation================================ -->
 
 		<!-- ====================================Get All Job========================================================== -->
 		<action path="/sitter/jobList" type="com.hm.app.action.JobAction">
@@ -124,32 +170,44 @@
 		<!-- Account Dactivate -->
 		<action path="/seeker/accountDeactivate" type="com.hm.app.action.DeactivateAction"
 			scope="request" validate="false">
-			<forward name="success" path="/index.jsp" />
+			<forward name="success" path="/index.jsp" redirect="true"/>
 			<forward name="error" path="/error.do" />
 		</action>
 
-		<action path="sitter/accountDeactivate" type="com.hm.app.action.DeactivateAction"
+		<action path="/sitter/accountDeactivate" type="com.hm.app.action.DeactivateAction"
 			scope="request" validate="false" input="/sitterProfile.jsp">
 			<forward name="success" path="/index.jsp"  redirect="true"/>
 			<forward name="error" path=" /WEB-INF/error.jsp" />
 		</action>
+		
+		
+		<action path="/sitter/appliedJobs" type="com.hm.app.action.GetappliedJobsForSitterRedirectAction"
+			scope="request" validate="false" input="/sitterProfile.jsp">
+			<forward name="success" path="/sitter/showAppliedJobs.do" />
+		</action>
+		
+		<action path="/sitter/showAppliedJobs" type="com.hm.app.action.GetAppliedJobsForSitterAction"
+			scope="request" validate="false" input="/showAplliedJobs.do">
+			<forward name="success" path="/showAppliedJobForSitter.jsp" />
+		</action>
+		
 	</action-mappings>
 
+
+	
+	
 
 
 	<controller>
 		<set-property property="processorClass" value="com.hm.app.util.OwnRequestProcessor" />
 	</controller>
 
-	<!-- <controller processorClass="hm.com.register.RegisterProcessor" /> -->
 	<message-resources parameter="messages" />
 
 	<!-- <message-resources parameter="validatormsg" /> -->
 
 
 	<plug-in className="org.apache.struts.validator.ValidatorPlugIn">
-		<set-property property="pathnames"
-			value="/WEB-INF/validator-rules.xml,
-                             /WEB-INF/homeJob_validator.xml" />
+		<set-property property="pathnames" value="/WEB-INF/validator-rules.xml,/WEB-INF/homeJob_validator.xml" />
 	</plug-in>
 </struts-config>

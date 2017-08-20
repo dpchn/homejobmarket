@@ -39,35 +39,38 @@ public class UserDao {
 			Session session = CreateSession.sessionFactory.openSession();
 			org.hibernate.Query query = session.createQuery("from com.hm.app.model.User where email = :email");
 			query.setParameter("email", email);
+			System.out.println(query.uniqueResult());
 			return query.uniqueResult()!=null;
 		}
 	
 		
 		/*********************************************************************************
-		 * Is user accoutn Active ?
+		 * Is user account Active ?
 		 *********************************************************************************
 		 */
 		public String isActive(String email) {
 			Session session = CreateSession.sessionFactory.openSession();
-			org.hibernate.Query query = session.createQuery("from com.hm.app.model.User where email = :email");
+			org.hibernate.Query query = session.createQuery("from com.hm.app.model.User where email =:email");
 			query.setParameter("email", email);
 			User u = (User)query.uniqueResult();
-			return u.getTemporaryActive();
-				
+			System.out.println("active is "+u.getTemporaryActive());
+			return u.getTemporaryActive();		
 		}
 	
+		
 	
 	/***************************************************************
 	 * Find User By id
 	 * **************************************************************
 	 */
-
 	public User findId(Integer id) {
 		Session session = CreateSession.sessionFactory.openSession();
 		User user = (User) session.get(User.class, id);
 		session.close();
 		return user;
 	}
+	
+	
 
 	/*
 	 * Login User
@@ -82,7 +85,6 @@ public class UserDao {
 					.uniqueResult();
 			transaction.commit();
 			session.close();
-
 			return user;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -93,17 +95,16 @@ public class UserDao {
 	}
 	
 	
+	
+	
 	/*
 	 * Update
 	 */
-	
-	
 	public boolean update(User obj) {
 		System.out.println("Inside UpdateDao....");
 		Session session = CreateSession.sessionFactory.openSession();
 		Transaction transaction = session.beginTransaction();
 		try {
-			
 			session.saveOrUpdate(obj);
 			transaction.commit();
 			session.close();
@@ -114,7 +115,6 @@ public class UserDao {
 			System.out.println("Error ");
 			return false;
 		}
-		
 	}
 
 }

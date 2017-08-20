@@ -7,8 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>Your account has been Deactivated Please Contact to Admin !</h1>
-
- <p>Either <a href="/index.jsp">Go to home</a>
+<h1>Email Not exist</h1>
+<h1>Please register first ! or login from another another email</h1>
+ <p>Either <a href="auth/login.do">login</a> or <a href="auth/reg.do">make new account</a> 
 </body>
 </html>

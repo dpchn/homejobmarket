@@ -1,9 +1,13 @@
 package com.hm.app.dao;
 
 import java.util.*;
+
+import javax.management.Query;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import com.hm.app.model.Application;
 import com.hm.app.model.Job;
 import com.hm.app.util.CreateSession;
 
@@ -39,12 +43,12 @@ public class JobDao {
 	}
 
 	/*
-	 * Get all job list
+	 * Get all job list from Job Table
 	 */
 	public List<Job> fetchAllJob() {
 		Session session = CreateSession.sessionFactory.openSession();
 		Transaction transaction = session.beginTransaction();
-		List<Job> list = session.createQuery("from com.hm.app.model.Job").list();
+		List<Job> list = session.createQuery("from com.hm.app.model.Job where t_active = true").list();
 		transaction.commit();
 		session.close();
 		return list;
@@ -67,5 +71,109 @@ public class JobDao {
 	 * obj.put("payPerHour", l.getPayPerHour()); obj.put("postedBy",
 	 * l.getPostedBy()); joblist.put(l.getId(), obj); }
 	 */
-
+	
+	/*
+	 * Get Individual Posted Job
+	 * 
+	 */
+	
+	public List<Job> getPostedJob(Integer userId){
+		Session session = CreateSession.sessionFactory.openSession();
+		Transaction transaction = session.beginTransaction();
+		List<Job> list = session.createQuery("from com.hm.app.model.Job where posted_by="+userId+" and t_active=true").list();
+		System.out.println("gtePosted job......");
+		transaction.commit();
+		session.close();
+		return list;
+	}
+	
+	
+	/*
+	 * Delete Job
+	 * 
+	 */
+	
+	public boolean delete(Job object) {
+		Session session = CreateSession.sessionFactory.openSession();
+		Transaction transaction = session.beginTransaction();
+		System.out.println("Job Dao...");
+		try {
+			 session.saveOrUpdate(object);
+			transaction.commit();
+			session.close();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			transaction.rollback();
+			session.close();
+			return false;
+		}
+	}
+	
+	/*
+	 * Delete all posted job
+	 * 
+	 */
+	public List<Integer> deactivateAllUserPostejob(Integer id) {
+		Session session = CreateSession.sessionFactory.openSession();
+		Transaction transaction  = session.beginTransaction();
+		List<Job> job = session.createQuery("from com.hm.app.model.Job where posted_by="+id+" and t_active=true").list();
+		List<Integer> jobIds = new ArrayList<>();
+		job.stream().forEach(x->{x.setTemporaryActive("false");
+								jobIds.add(x.getId());
+								session.saveOrUpdate(x);});
+		transaction.commit();
+		session.close();
+		return jobIds;
+	}
+	
+	
+	/*
+	 * Get all applied from application(For Sitter)
+	 * 
+	 */
+	public List<Job> getAppliedJob(int applyBy) {
+		Session session = CreateSession.sessionFactory.openSession();
+		List<Application> appliedJobs = session.createQuery("from com.hm.app.model.Application where apply_by="+applyBy+"").list();
+		List<Job> jobList = new ArrayList<>();
+		
+		appliedJobs.stream().forEach(x->jobList.add(x.getJobId()));
+		
+		session.close();
+		return jobList;
+	}
+	
+	
+	
+	
+	/*
+	 * 
+	 * Application Deactivate
+	 */
+	public void applicationDeactivate(List<Integer> jobIds) {
+		Session session = CreateSession.sessionFactory.openSession();
+		Transaction transaction = session.beginTransaction();
+		org.hibernate.Query query = session.createQuery("from com.hm.app.model.Application where job_id IN (:jobIds)");
+		query.setParameter("jobIds", jobIds);
+		System.out.println(query.getResultList());
+		List<Application> app = query.getResultList();
+		app.stream().forEach(x->{
+			x.setTemporaryActive("false");
+			session.saveOrUpdate(x);
+		});
+		transaction.commit();
+		session.close();
+	}
+	
+	
+	/*
+	 * Get applicants for job
+	 */
+	public List<Application> getNoOfApplicantforJob(Integer jobId) {
+		Session session = CreateSession.sessionFactory.openSession();
+		List<Application> query = session.createQuery("from com.hm.app.model.Application where job_id="+jobId+"").getResultList();
+		
+		session.close();
+		return query;
+	}
 }

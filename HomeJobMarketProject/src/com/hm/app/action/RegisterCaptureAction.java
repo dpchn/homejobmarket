@@ -1,6 +1,8 @@
 package com.hm.app.action;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,26 +29,28 @@ public class RegisterCaptureAction extends Action {
 		registerService = new UserService();
 		int id = registerService.addUser(user.getfName(), user.getlName(), user.getphoneNo(), user.getEmail(),
 				user.getPassword(), user.getType(), user.getNoChild());
-		
-			if (id > 0) {
-				System.out.println(user.getfName());
-				HashMap<String, Object> data = new HashMap();
-				data.put("fName", user.getfName());
-				data.put("lName", user.getlName());
-				data.put("phone", user.getphoneNo());
-				data.put("email", user.getEmail());
-				data.put("noOfChild", user.getNoChild());
-				
-				HttpSession httpSession = request.getSession();
-				httpSession.setAttribute("type", user.getType());
-				httpSession.setAttribute("data", data);
-				httpSession.setAttribute("id", id);
-				System.out.println("Id is :" + id);
-				if (user.getType().equals("seeker"))
-					return mapping.findForward("seeker");
-				else if (user.getType().equals("sitter"))
-					return mapping.findForward("sitter");
-			}
+
+		if (id > 0) {
+			System.out.println(user.getfName());
+			List<Object> userlist = new ArrayList<>();
+			HashMap<String, Object> data = new HashMap();
+			data.put("fName", user.getfName());
+			data.put("lName", user.getlName());
+			data.put("phone", user.getphoneNo());
+			data.put("email", user.getEmail());
+			data.put("noOfChild", user.getNoChild());
+			
+			userlist.add(data);
+			HttpSession httpSession = request.getSession();
+			httpSession.setAttribute("type", user.getType());
+			httpSession.setAttribute("data", userlist);
+			httpSession.setAttribute("id", id);
+			System.out.println("Id is :" + id);
+			if (user.getType().equals("seeker"))
+				return mapping.findForward("seeker");
+			else if (user.getType().equals("sitter"))
+				return mapping.findForward("sitter");
+		}
 		return mapping.findForward("error");
 	}
 

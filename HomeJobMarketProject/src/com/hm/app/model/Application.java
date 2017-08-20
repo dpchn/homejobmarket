@@ -4,7 +4,14 @@ public class Application {
 	private int id;
 	private Job jobId;
 	private User applyBy;
+	private String temporaryActive ;
 	
+	public String getTemporaryActive() {
+		return temporaryActive;
+	}
+	public void setTemporaryActive(String temporaryActive) {
+		this.temporaryActive = temporaryActive;
+	}
 	public int getId() {
 		return id;
 	}

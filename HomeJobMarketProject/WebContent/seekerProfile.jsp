@@ -15,17 +15,32 @@
 <body>
 <h1>Welcome to Seeker Profile</h1>
 
-<table border="1">
+	<table border="1">
 		<c:forEach var="item" items="${data}">
 			<tr>
-				<th>${item.key}:</th>
-				<td>${item.value}</td>
+				<th>First Name :</th>
+				<td>${item.fName}</td>
+			</tr>
+			<tr>
+				<th>Last Name :</th>
+				<td>${item.lName}</td>
+			</tr>
+			<tr>
+				<th>Phone No:</th>
+				<td>${item.phone}</td>
+			</tr>
+			<tr>
+				<th>Email Id :</th>
+				<td>${item.email}</td>
+			</tr>
+
+			<tr>
+				<th>No of Child :</th>
+				<td>${item.noOfChild}</td>
 			</tr>
 		</c:forEach>
-
-
 	</table>
-	
+
 	<form action="job.do" method="post">
 		<input type="submit" value="Post Job"/>
 	</form>
@@ -33,6 +48,10 @@
 	
 	<form action="update.do" method="POST">
 		<input type="submit" value="Profile Update"/>
+	</form>
+	
+	<form action="showPostedJob.do" method="POST">
+		<input type="submit" value="show Posted Job"/>
 	</form>
 	
 	<form action="logout.do" method="POST">

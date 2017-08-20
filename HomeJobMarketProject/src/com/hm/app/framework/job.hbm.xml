@@ -16,9 +16,7 @@
 		<property name="startDate" type="timestamp">
 			<column name="start_date" />
 		</property>
-		<!-- <property name="postedBy">
-			<column name="postedBy" />
-		</property> -->
+		
 		<property name="endDate" type="timestamp">
 			<column name="end_date" />
 		</property>
@@ -26,6 +24,11 @@
 		<property name="payPerHour">
 			<column name="pay_per_hour" />
 		</property>
+		
+		<property name="temporaryActive">
+			<column name="t_active" />
+		</property>
+		
 		<many-to-one name="postedBy" class="com.hm.app.model.User" column="posted_by" cascade="all"/>
    		<!-- <one-to-one name="postedBy" cascade="all"></one-to-one> -->
 	</class>

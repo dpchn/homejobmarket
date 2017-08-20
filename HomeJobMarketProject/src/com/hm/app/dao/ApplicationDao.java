@@ -38,37 +38,28 @@ public class ApplicationDao {
 		}
 
 	}
+	
+	
+	
 
+	/*
+	 * 
+	 * Get Applied Job list
+	 */
 	public List<Integer> getAppliedJob(Integer memberId) {
 		Session session = CreateSession.sessionFactory.openSession();
-		Query query = session.createQuery(" from com.hm.app.model.Application");
-		List<Application> list = query.list();
-		Iterator<Application> iterator = list.iterator();
-		List<Integer> jobIds = new ArrayList<Integer>();
-		while (iterator.hasNext()) {
-			Application app = iterator.next();
-			User user = app.getApplyBy();
-			Job job = app.getJobId();
-			if (user.getId() == memberId)
-				jobIds.add(job.getId());
-			System.out.println("Member " + user.getId() + " " + job.getId());
-		}
-
+		Query query = session.createQuery("from com.hm.app.model.Application where apply_by ="+memberId+"");
+		/*Query q = session.createQuery("from com.hm.app.model.Job  where jobId not IN (:applist)");
+		List<Application> ll = query.list();
+		q.setParameter("applist", ll);*/
+		List<Application> app =query.getResultList();
+		List<Integer> jobList = new ArrayList<>();
+		app.stream().forEach(x->jobList.add(x.getJobId().getId()));
 		session.close();
-		return jobIds;
-
+		return jobList;
 	}
 	
-	/*Session session = CreateSession.sessionFactory.openSession();
-	Query query = session.createQuery("select am.jobId.id from com.hm.app.model.ApplicationModel am "
-			+ "where am.apply_by=:memberId");
-	
-	query.setParameter("memberId", memberId);
-	
-	List<Integer> list = query.list();
-
-	session.close();
-	return list;*/
-	
-
+/*public static void main(String[] args) {
+	new ApplicationDao().getAppliedJob(23);
+}*/
 }

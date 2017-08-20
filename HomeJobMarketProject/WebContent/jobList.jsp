@@ -12,30 +12,45 @@
 	<c:if test="${joblist.size() > 0 }">
 		<table>
 			<c:forEach items="${joblist}" var="job">
-
 				<tr>
 					<td>
 						<table>
-							<c:forEach items="${job.value}" var="item">
-								<tr>
-								<c:if test="${item.key!='jobId'}">
-									<th>${item.key}</th>
-									<td>${item.value}</td>
-								</c:if>
-								</tr>
-							</c:forEach>
+							<tr>
+								<th>Job Title :</th>
+								<td>${job.jobTitle}</td>
+							</tr>
+							<tr>
+								<th>Job Description :</th>
+								<td>${job.jobDes}</td>
+							</tr>
+							<tr>
+								<th>Start Date :</th>
+								<td>${job.startDate}</td>
+							</tr>
+							<tr>
+								<th>End Date :</th>
+								<td>${job.endDate}</td>
+							</tr>
+							<tr>
+								<th>Pay($/hr) :</th>
+								<td>${job.payPerHour}</td>
+							</tr>
+							<tr>
+								<th>Job Title :</th>
+								<td>${job.jobTitle}</td>
+							</tr>
 						</table>
-
-					</td>
-					<td><a href="applyJob.do?jobId=${job.key}">Apply to this
-							job</a></td>
-				</tr>
+					<td>
+					<td>
+						<table>
+							<tr>
+								<td><a href="applyJob.do?jobId=${job.jobId}">Apply</a></td>
+							</tr>
+						</table>
 				<tr>
-					<td colspan="2">
-						<h4>________________________________________________________________________________</h4>
-					</td>
+					<td colspan="2"><c:out
+							value="__________________________________________________"></c:out></td>
 				</tr>
-
 			</c:forEach>
 		</table>
 	</c:if>
@@ -43,8 +58,8 @@
 	<c:if test="${joblist.size() < 1 }">
 		<h1>No Job Available</h1>
 	</c:if>
-	
-	
+
+
 	<form action="sitterProfile.do">
 		<input type="submit" value="Home" />
 	</form>

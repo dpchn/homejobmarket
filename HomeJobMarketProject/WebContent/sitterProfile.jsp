@@ -12,14 +12,23 @@
 
 	<table border="1">
 		<c:forEach var="item" items="${data}">
-			
 			<tr>
-				<th>${item.key}:</th>
-				<td>${item.value}</td>
+				<th>First Name :</th>
+				<td>${item.fName}</td>
+			</tr>
+			<tr>
+				<th>Last Name :</th>
+				<td>${item.lName}</td>
+			</tr>
+			<tr>
+				<th>Phone No:</th>
+				<td>${item.phone}</td>
+			</tr>
+			<tr>
+				<th>Email Id :</th>
+				<td>${item.email}</td>
 			</tr>
 		</c:forEach>
-
-
 	</table>
 
 	<form action="update.do" method="POST">
@@ -30,12 +39,16 @@
 		<input type="submit" value="Search Job" />
 	</form>
 
+	<form action="appliedJobs.do" method="POST">
+		<input type="submit" value="Show Applied Jobs" />
+	</form>
+
 	<form action="logout.do" method="POST">
 		<input type="submit" value="Logout" />
 	</form>
-	
+
 	<form action="accountDeactivate.do" method="POST">
-		<input type="submit" value="Account Deactivate"/>
+		<input type="submit" value="Account Deactivate" />
 	</form>
 
 
