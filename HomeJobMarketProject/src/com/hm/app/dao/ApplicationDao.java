@@ -59,7 +59,22 @@ public class ApplicationDao {
 		return jobList;
 	}
 	
-/*public static void main(String[] args) {
-	new ApplicationDao().getAppliedJob(23);
+	
+	
+	
+/*	void test(Integer id) {
+		Session session = CreateSession.sessionFactory.openSession();
+		Query query = session.createQuery("from com.hm.app.model.Application where apply_by ="+id+"");
+		List<Application> list = query.list();
+		List<Job> l = new ArrayList<>();
+		list.stream().forEach(x->{
+			System.out.println("Job id "+x.getJobId());
+			l.add(x.getJobId());
+		});
+		
+	}
+	
+public static void main(String[] args) {
+	new ApplicationDao().test(3);
 }*/
 }

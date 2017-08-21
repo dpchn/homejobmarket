@@ -4,7 +4,7 @@
 <hibernate-mapping>
 	<class name="com.hm.app.model.Application" table="application">
 		<id name="id" type="int">
-			<column name="app_id" />
+			<column name="appId" />
 			<generator class="increment" />
 		</id>
 		 <property name="temporaryActive">
@@ -13,5 +13,6 @@
 		
 		<many-to-one name="applyBy" class="com.hm.app.model.User" column="apply_by" cascade="all" />
 		<many-to-one name="jobId" class="com.hm.app.model.Job" column="job_id" cascade="all" />
+		
 	</class>
 </hibernate-mapping>

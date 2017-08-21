@@ -30,7 +30,7 @@ public class ReadFileWords {
 
 	}
 
-	public boolean isContainsOffensiveWord(String str) throws IOException {
+	public static boolean isContainsOffensiveWord(String str) throws IOException {
 
 		boolean containsOffensive = Arrays.asList(str.split(" ")).stream()
 				.anyMatch(x -> offensiveWordSet.contains(x.trim()));

@@ -17,8 +17,6 @@ public class UpdateAction extends Action {
 			HttpServletResponse response) throws Exception {
 		System.out.println("Inside Update Action...Fisrt ");
 		UpdateForm updateForm = (UpdateForm) form;
-		//System.out.println("Inside Update Action :"+ request.getSession().getAttribute("updateData"));
-		//System.out.println("Inside Update Action :"+ request.getSession().getAttribute("updateData").equals(""));
 	
 		List<Integer> data = (List<Integer>)request.getSession().getAttribute("data");
 		List<Object> updatelist = new ArrayList<>();

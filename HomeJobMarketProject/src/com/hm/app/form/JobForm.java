@@ -114,11 +114,10 @@ public class JobForm extends ActionForm {
 		if(!JobForm.isBeforeDate(startDate, endDate))
 			errors.add("dateBefore", new ActionMessage("dateBefore"));
 
-		ReadFileWords readFileWords = new ReadFileWords();
 		try {
-			if (readFileWords.isContainsOffensiveWord(jobTitle))
+			if (ReadFileWords.isContainsOffensiveWord(jobTitle))
 				errors.add("JobTitleoffensiveword", new ActionMessage("JobTitleoffensiveword"));
-			if (readFileWords.isContainsOffensiveWord(jobDes))
+			if (ReadFileWords.isContainsOffensiveWord(jobDes))
 				errors.add("JobDesOffensiveword", new ActionMessage("JobDesOffensiveword"));
 		} catch (IOException e) {
 			e.printStackTrace();

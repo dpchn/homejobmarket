@@ -94,8 +94,7 @@ public class UserService {
 		User user = userDao.findId(id);
 		user.setTemporaryActive("false");
 		if (type.equals("seeker")) {
-			List<Integer> jobIds = jobDao.deactivateAllUserPostejob(id);
-			jobDao.applicationDeactivate(jobIds);
+		user.getJobs().stream().forEach(x->x.setTemporaryActive("false"));
 		}
 		return userDao.update(user);
 	}
@@ -106,7 +105,6 @@ public class UserService {
 		List<Object> applicants = new ArrayList<>();
 		application.stream().forEach(x -> {
 			User user = x.getApplyBy();
-			Map<String, Object> jobObj = new HashMap();
 			Map<String, Object> userObj = new HashMap();
 			userObj.put("Name", user.getfName());
 			userObj.put("Phone", user.getphoneNo());

@@ -40,3 +40,7 @@
 
 	<input type="submit" value="Update" />
 </h:form>
+
+<form action="seekerProfile.do">
+		<input type="submit" value="Home" />
+	</form>

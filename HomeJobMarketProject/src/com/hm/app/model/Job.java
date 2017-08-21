@@ -1,6 +1,7 @@
 package com.hm.app.model;
 
 import java.util.Date;
+import java.util.Set;
 
 public class Job {
 	private int id;
@@ -10,7 +11,16 @@ public class Job {
 	private Date endDate;
 	private User postedBy;
 	private String temporaryActive;
+	private Set<Application> applications;
 	
+	public Set<Application> getApplications() {
+		return applications;
+	}
+
+	public void setApplications(Set<Application> applications) {
+		this.applications = applications;
+	}
+
 	public String getTemporaryActive() {
 		return temporaryActive;
 	}

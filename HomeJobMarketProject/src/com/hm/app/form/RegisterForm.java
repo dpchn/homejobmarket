@@ -102,18 +102,20 @@ public class RegisterForm extends ValidatorForm {
 
 		if (email.isEmpty() || email == null || !email.matches(cp.emailPattern)) {
 			System.out.println("email : "+email.matches(cp.emailPattern));
-			actionErrors.add("fName", new ActionMessage("email"));
+			actionErrors.add("email", new ActionMessage("email"));
 		}
 
 		if (phoneNo.isEmpty() || phoneNo == null || !phoneNo.matches(cp.phonePattern)) {
 			System.out.println("phoneno : "+phoneNo.matches(cp.phonePattern));
-			actionErrors.add("phoneNo", new ActionMessage("phoneNo"));
+			actionErrors.add("phone", new ActionMessage("phone"));
 		}
 
 		if (password.isEmpty() || password == null) {
 			System.out.println("Password");
 			actionErrors.add("password", new ActionMessage("password"));
 		}
+		if(type==null || type.isEmpty())
+			actionErrors.add("type", new ActionMessage("type"));
 		return actionErrors;
 	}
 

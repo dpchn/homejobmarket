@@ -16,16 +16,12 @@ public class DeactivateAction extends Action{
 	@Override
 	public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		if(request.getSession()!=null) {
-			
-		}
+		
 		if(request.getSession()!=null) {
 			Integer id = (Integer)request.getSession().getAttribute("id");
 			boolean result= user.deActivate(id,(String)request.getSession().getAttribute("type") );
 			if(result) {
-				request.getSession().removeAttribute("type");
-				request.getSession().removeAttribute("data");
-				request.getSession().removeAttribute("joblist");
+				request.getSession().invalidate();
 				return mapping.findForward("success");
 			}
 		}

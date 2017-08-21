@@ -33,6 +33,17 @@
 		<property name="temporaryActive">
 			<column name="t_active" default="true" not-null="true" />
 		</property>
+		
+		<set name= "jobs" table="job" cascade="all" lazy = "false">
+			<key column="posted_by"></key>
+			<one-to-many class="com.hm.app.model.Job"/>
+		</set>
+		
+		<set name= "applications" table="application" cascade="all" lazy = "false">
+			<key column="apply_by"></key>
+			<one-to-many class="com.hm.app.model.Application"/>
+		</set>
+		
 
 	</class>
 </hibernate-mapping>

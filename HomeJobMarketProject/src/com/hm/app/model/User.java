@@ -1,5 +1,7 @@
 package com.hm.app.model;
 
+import java.util.Set;
+
 public class User {
 
 	private int id;
@@ -9,8 +11,29 @@ public class User {
 	private String email;
 	private String password;
 	private int noOfChild;
+	private Set<Job> jobs;
+	private Set<Application> applications;
+	
+
 	private String temporaryActive;
 	// private enum type {seeker,sitter};
+	
+	
+	public Set<Job> getJobs() {
+		return jobs;
+	}
+
+	public Set<Application> getApplications() {
+		return applications;
+	}
+
+	public void setApplications(Set<Application> applications) {
+		this.applications = applications;
+	}
+
+	public void setJobs(Set<Job> jobs) {
+		this.jobs = jobs;
+	}
 	
 	public String getPhoneNo() {
 		return phoneNo;

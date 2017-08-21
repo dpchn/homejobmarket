@@ -1,10 +1,11 @@
 package com.hm.app.dao;
 
 import java.util.*;
-import java.util.Map;
 
 import org.hibernate.*;
 
+import com.hm.app.model.Application;
+import com.hm.app.model.Job;
 import com.hm.app.model.User;
 import com.hm.app.util.CreateSession;
 
@@ -31,7 +32,7 @@ public class UserDao {
 		}
 	}
 
-	/*********************************************************************************
+	/**********Application***********************************************************************
 	 * Check User Exist or Not
 	 *********************************************************************************
 	 */
@@ -58,11 +59,12 @@ public class UserDao {
 		}
 	
 		
-	
+		
 	/***************************************************************
 	 * Find User By id
 	 * **************************************************************
 	 */
+		
 	public User findId(Integer id) {
 		Session session = CreateSession.sessionFactory.openSession();
 		User user = (User) session.get(User.class, id);
@@ -115,6 +117,25 @@ public class UserDao {
 			System.out.println("Error ");
 			return false;
 		}
+	}
+	
+	
+	static void test() {
+		Session session = CreateSession.sessionFactory.openSession();
+		org.hibernate.Query q = session.createQuery("from com.hm.app.model.User");
+		List<User> list = q.getResultList();
+		List<Application> l = new ArrayList<Application>();
+		//list.stream().forEach(x->System.out.println(x.getApplications()));
+		list.stream().forEach(x->{
+			Set<Job> a = x.getJobs();
+			System.out.println(x.getfName());
+			for(Job j: a)
+				System.out.println(j.getId());
+		});
+	}
+	
+	public static void main(String[] args) {
+		test();
 	}
 
 }

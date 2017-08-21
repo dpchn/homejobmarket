@@ -30,6 +30,10 @@
 		</property>
 		
 		<many-to-one name="postedBy" class="com.hm.app.model.User" column="posted_by" cascade="all"/>
-   		<!-- <one-to-one name="postedBy" cascade="all"></one-to-one> -->
+   		
+   		<set name= "applications" table="application" cascade="all" lazy = "false">
+			<key column="job_id"></key>
+			<one-to-many class="com.hm.app.model.Application"/>
+		</set>
 	</class>
 </hibernate-mapping>

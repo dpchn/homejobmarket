@@ -6,6 +6,8 @@ public class Application {
 	private User applyBy;
 	private String temporaryActive ;
 	
+	
+	
 	public String getTemporaryActive() {
 		return temporaryActive;
 	}

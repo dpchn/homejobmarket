@@ -10,11 +10,11 @@
 
 
 			<field property="fName" depends="required">
-				<arg key="fName" resource="false" />
+				<arg key="First_Name" resource="false" />
 			</field>
 
 			<field property="lName" depends="required">
-				<arg key="lName" resource="false" />
+				<arg key="Last_Name" resource="false" />
 			</field>
 
 			<!-- <field property="age" depends="intRange"> <arg key="age" /> <arg 
@@ -39,8 +39,8 @@
 
 	<formset language="en" country="IN">
 		<form name="register">
-			<field property="contactno" depends="mask">
-				<arg key="contactno" resource="false" />
+			<field property="phone" depends="mask">
+				<arg key="Phone" resource="false" />
 				<var>
 					<var-name>mask</var-name>
 					<var-value>^[7-9]\d{9}$</var-value>
@@ -54,8 +54,8 @@
 	<formset language="en" country="US">
 		<form name="register">
 
-			<field property="contactno" depends="mask">
-				<arg key="contactno" resource="false" />
+			<field property="phone" depends="mask">
+				<arg key="Phone" resource="false" />
 				<var>
 					<var-name>mask</var-name>
 					<var-value>^[2-4]\d{9}$</var-value>

@@ -4,7 +4,11 @@
 
 <html:form action="auth/captureLogin.do">
 	Email : <html:text property="email" />
-	<font color="red"><html:errors property="email"/></font>
+	<font color="red">
+	<html:errors property="email"/>
+	<html:errors property="emailNotExist"/>
+	<html:errors property="notActive"/>
+	</font>
 	<br>
 	Password : <html:password property="password" />
 	<font color="red"><html:errors property="password"/></font>

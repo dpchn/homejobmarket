@@ -17,7 +17,6 @@ public class GetAllJobAction extends Action {
 		if (request.getSession() != null && request.getSession().getAttribute("type").equals("sitter")) {
 			List<Object> result = getJobList.getAllJob((Integer) request.getSession().getAttribute("id"));
 			request.getSession().setAttribute("joblist", result);
-			System.out.println("Inside joblist....action");
 			return mapping.findForward("success");
 		}
 		return mapping.findForward("error");
