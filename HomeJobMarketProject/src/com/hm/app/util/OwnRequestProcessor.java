@@ -10,7 +10,7 @@ public class OwnRequestProcessor extends RequestProcessor {
 
 	@Override
 	protected boolean processPreprocess(HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("Inside ProcesRoles");
+
 		HttpSession session = request.getSession(false);
 		System.out.println(request.getServletPath());
 		System.out.println();
@@ -20,20 +20,20 @@ public class OwnRequestProcessor extends RequestProcessor {
 		}
 		if (request.getServletPath().equals("/update.do")
 				&& (session.getAttribute("type").equals("seeker") || session.getAttribute("type").equals("sitter"))) {
-			System.out.println("Login...");
+
 			return true;
 		}
 		if (request.getServletPath().equals("/logout.do")) {
-			System.out.println("Login...");
+
 			return true;
 		}
-		if (session != null && session.getAttribute("id") != null && request.getServletPath().contains("sitter") &&
-				request.getSession().getAttribute("type").equals("sitter")) {
+		if (session != null && session.getAttribute("id") != null && request.getServletPath().contains("sitter")
+				&& request.getSession().getAttribute("type").equals("sitter")) {
 			System.out.println("sitter...");
 			return true;
 		}
-		if (session != null && session.getAttribute("id") != null && request.getServletPath().contains("seeker") &&
-				request.getSession().getAttribute("type").equals("seeker"))
+		if (session != null && session.getAttribute("id") != null && request.getServletPath().contains("seeker")
+				&& request.getSession().getAttribute("type").equals("seeker"))
 			return true;
 		else {
 			System.out.println("else...");

@@ -134,8 +134,14 @@
 		<action path="/seeker/deleteJob" name="apply"
 			type="com.hm.app.action.DeleteJobCaptureAction" scope="request"
 			validate="false" input="/deleteJob.jsp">
-			<forward name="error" path="/error.do" />
-			<forward name="success" path="/seeker/showPostedJob.do" />
+			<forward name="success" path="/seeker/deleteJobConfirmation.do" redirect="true"/>
+		</action>
+		
+		
+		<action path="/seeker/deleteJobConfirmation"  name="apply"
+			type="com.hm.app.action.showApplicantAction" scope="request" validate="false"
+			input="/seeker/deleteJob">
+			<forward name="success" path="/deleteJobConfirmation.jsp"/>
 		</action>
 
 		<action path="/seeker/showApplicant" type="com.hm.app.action.showApplicantAction"
@@ -182,7 +188,18 @@
 			type="com.hm.app.action.ApplyJobAction" scope="request" validate="false"
 			input="/jobList.jsp">
 			<forward name="error" path="/error.do" />
-			<forward name="success" path="/sitter/sitterProfile.do" />
+			<forward name="success" path="/sitter/sitterConfirmation.do" redirect="true"/>
+		</action>
+		<action path="/sitter/sitterConfirmation"  name="apply"
+			type="com.hm.app.action.ApplyJobAction" scope="request" validate="false"
+			input="/jobList.jsp">
+			<forward name="success" path="/jobApplyConfirmation.jsp"/>
+		</action>
+		
+		<action path="/sitter/sitterConfirmation"  name="apply"
+			type="com.hm.app.action.ApplyJobAction" scope="request" validate="false"
+			input="/jobList.jsp">
+			<forward name="success" path="/jobApplyConfirmation.jsp"/>
 		</action>
 
 		<!-- ===================================================================================== -->

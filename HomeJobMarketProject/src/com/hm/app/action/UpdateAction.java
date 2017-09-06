@@ -24,7 +24,7 @@ public class UpdateAction extends Action {
 				|| request.getSession().getAttribute("updateData").equals("")) {
 			System.out.println("Checking data in data ins Update");
 			System.out.println(data);
-			updatelist.addAll(data);
+		updatelist.addAll(data);
 			
 		}else {
 			System.out.println("Else");

@@ -105,14 +105,24 @@ public class JobForm extends ActionForm {
 			errors.add("startTime", new ActionMessage("startTime"));
 		if (endTime == null || endTime.isEmpty())
 			errors.add("endTime", new ActionMessage("endTime"));
-		if (payPerHour == 0)
+		if (payPerHour <= 0)
 			errors.add("payPerHour", new ActionMessage("payPerHour"));
-		if(!JobForm.isThisDateValid(endDate))
-			errors.add("endDateFormat", new ActionMessage("endDateFormat"));
-		if(!JobForm.isThisDateValid(startDate))
-			errors.add("startDateFormat", new ActionMessage("startDateFormat"));
-		if(!JobForm.isBeforeDate(startDate, endDate))
-			errors.add("dateBefore", new ActionMessage("dateBefore"));
+		if (!endDate.isEmpty() && endDate != null && !startDate.isEmpty() && startDate != null) {
+			boolean check1 = true, check2 = true;
+			if (!JobForm.isThisDateValid(endDate)) {
+				
+				check1 = false;
+				errors.add("endDateFormat", new ActionMessage("endDateFormat"));
+			}
+			if (!JobForm.isThisDateValid(startDate)) {
+				check2 = false;
+				errors.add("startDateFormat", new ActionMessage("startDateFormat"));
+			}
+			
+			if(check1 && check2)
+				if(!JobForm.isBeforeDate(startDate, endDate))
+					errors.add("dateBefore", new ActionMessage("dateBefore"));
+		}
 
 		try {
 			if (ReadFileWords.isContainsOffensiveWord(jobTitle))
@@ -137,12 +147,11 @@ public class JobForm extends ActionForm {
 
 	}
 
-	
 	/*
 	 * Check date format
 	 */
 	public static boolean isThisDateValid(String dateToValidate) {
-		String dateFromat = "dd-mm-yy";
+		String dateFromat = "dd-mm-yyyy";
 		if (dateToValidate == null) {
 			return false;
 		}
@@ -150,6 +159,7 @@ public class JobForm extends ActionForm {
 		sdf.setLenient(false);
 		try {
 			Date date = sdf.parse(dateToValidate);
+			
 			System.out.println(date);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -157,24 +167,23 @@ public class JobForm extends ActionForm {
 		}
 		return true;
 	}
-	
-	
+
 	/*
 	 * Compare two date
 	 */
-	
-	public static boolean isBeforeDate(String startDate,String endDate ) {
-		if(startDate== null || endDate==null) 
+
+	public static boolean isBeforeDate(String startDate, String endDate) {
+		if (startDate == null || endDate == null)
 			return false;
-		
+
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
-		
+
 		try {
 			Date date1 = sdf.parse(startDate);
-            Date date2 = sdf.parse(endDate);
-            System.out.println("Before date"+ date1.before(date2));
-            if(date1.before(date2))
-            	return true;
+			Date date2 = sdf.parse(endDate);
+			System.out.println("Before date" + date1.before(date2));
+			if (date1.before(date2))
+				return true;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;

@@ -20,13 +20,7 @@ public class LoginCaptureAction extends Action {
 		System.out.println("inside capture login action....");
 		RequestDispatcher rd;
 		LoginForm user = (LoginForm) form;
-		if (!login.isExit(user.getEmail())) {
-			System.out.println("Email is not exist");
-			return mapping.findForward("notexist");
-		} else if (!login.isActive(user.getEmail())) {
-			System.out.println("Email is not active");
-			return mapping.findForward("notactive");
-		} else {
+		
 			System.out.println("Email is exist");
 			List<Object> result = login.checkUser(user.getEmail(), user.getPassword());
 			HttpSession httpSession = request.getSession();
@@ -38,18 +32,10 @@ public class LoginCaptureAction extends Action {
 				httpSession.setAttribute("id", id);
 				httpSession.setAttribute("data", result);
 				System.out.println("Data at loign tim " + result);
-				if (type.equals("seeker")){
-					httpSession.setAttribute("type", "seeker");
-					return mapping.findForward("seeker");
-				} else if (type.equals("sitter")) {
-					httpSession.setAttribute("type", "sitter");
-					return mapping.findForward("sitter");
-				}
-				
+				httpSession.setAttribute("type", type);
+				return mapping.findForward(type.toString().trim());
 			}
-		//	user.validate(mapping, request);
-			System.out.println("Error login");
-		}
+	
 		return mapping.findForward("error");
 	}
 

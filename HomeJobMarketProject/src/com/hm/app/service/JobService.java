@@ -120,6 +120,7 @@ public class JobService {
 	public boolean deleteJob(Integer jobId) {
 		Job job = jobDao.findJob(jobId);
 		job.setTemporaryActive("false");
+		job.getApplications().stream().forEach(x->x.setTemporaryActive("false"));
 		return jobDao.delete(job);
 	}
 

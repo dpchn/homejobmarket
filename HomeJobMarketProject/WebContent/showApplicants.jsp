@@ -26,9 +26,7 @@
 				</tr>
 
 			</table>
-			
 		</c:forEach>
-
 	</c:if>
 	<c:if test="${listOfApplicant.size() <1 }">
 		<c:out value="No Person has applied Yet" />

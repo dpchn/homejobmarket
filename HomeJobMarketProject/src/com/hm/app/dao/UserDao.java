@@ -37,6 +37,7 @@ public class UserDao {
 	 *********************************************************************************
 	 */
 		public boolean isExist(String email) {
+			System.out.println("Enter email is "+ email);
 			Session session = CreateSession.sessionFactory.openSession();
 			org.hibernate.Query query = session.createQuery("from com.hm.app.model.User where email = :email");
 			query.setParameter("email", email);

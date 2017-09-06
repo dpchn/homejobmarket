@@ -1,40 +1,72 @@
 <%@taglib prefix="html" uri="http://struts.apache.org/tags-html"%>
 
 <html:form action="seeker/captureJob.do" method="POST">
-	Job Title :<html:text property="jobTitle" />
-	<font color = 'red'><html:errors property="jobTitle"/>
+<table>
+	<tr><th>
+	Job Title :</th><td><html:text property="jobTitle" /></td>
+	<td>
+	<font color = 'red'><html:errors property="jobTitle" />
 	<html:errors property="JobTitleoffensiveword" />
 	 </font>
-	<br>
-	Job Descriptions :<html:textarea property="jobDes" />
+	 </td>
+	</tr>
+	<tr>
+	<th>
+	Job Descriptions :</th><td><html:textarea property="jobDes" /></td>
+	<td>
 	<font color = 'red'><html:errors property="jobDes" />
 	<html:errors property="JobDesOffensiveword" />
 	</font>
-	<br>
-	Start Date :<html:text property="startDate" />
+	</td>
+	</tr>
+	<tr>
+	<th>
+	Start Date (eg. dd-mm-yyyy):</th> <td><html:text property="startDate" /></td>
+	<td>
 	<font color = 'red'><html:errors property="startDate" />
 	<html:errors property="dateBefore" />
-	<html:errors property="startDateForamt" />
+	<html:errors property="startDateFormat" />
 	</font>
-	<br>
-	End Date :<html:text property="endDate" />
+	</td>
+	</tr>
+	<tr>
+	<th>
+	End Date (eg. dd-mm-yyyy):</th><td><html:text property="endDate" /></td>
+	<td>
 	<font color = 'red'>
-	<html:errors property="endDateForamt" />	
+	<html:errors property="endDateFormat" />	
 	<html:errors property="endDate" /></font>
-	<br>
-	Start Time :<html:text property="startTime" />
+	</td>
+	</tr>
+	<tr>
+	<th>
+	Start Time (eg. hh:mm):</th><td><html:text property="startTime" /></td>
+	<td>
 	<font color = 'red'><html:errors property="startTime" />
-	
 	</font>
-	<br>
-	End Time :<html:text property="endTime" />
+	</td>
+	</tr>
+	<tr>
+	<th>
+	End Time (eg. hh:mm):</th><td><html:text property="endTime" /></td>
+	<td>
 	<font color = 'red'><html:errors property="endTime" />
-	
 	</font>
-	<br>
-	Pay Per Hour<html:text property="payPerHour"  />
+	</td>
+	</tr>
+	<tr>
+	<th>
+	Pay Per Hour($/hr):</th><td><html:text property="payPerHour" /></td>
+	<td>
 	<font color = 'red'><html:errors property="payPerHour" /></font>
-	<br>
+	</td>
+	</tr>
+</table>
 	<html:submit value="Post" />
 	
 </html:form>
+
+<form action="seekerProfile.do">
+		<input type="submit" value="Back" />
+	</form>
+
