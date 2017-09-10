@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="html" uri="http://struts.apache.org/tags-html" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -9,6 +10,7 @@
 </head>
 <body>
 	<h1>Job List</h1>
+	<h5><html:errors property="jobNotExist" /></h5>
 	<c:if test="${joblist.size() > 0 }">
 		<table>
 			<c:forEach items="${joblist}" var="job">

@@ -12,6 +12,7 @@
 		<form-bean name="job" type="com.hm.app.form.JobForm" />
 		<form-bean name="update" type="com.hm.app.form.UpdateForm" />
 		<form-bean name="apply" type="com.hm.app.form.ApplyJobForm" />
+		<form-bean name="checkJobExist" type="com.hm.app.form.CheckJobExistForm" />
 	</form-beans>
 
 	<action-mappings>
@@ -77,6 +78,12 @@
 
 		<action path="/seeker/logout" type="com.hm.app.action.LogoutAction"
 			scope="request">
+			<forward name="seeker" path="/seeker/logout.do" redirect="true" />
+			<forward name="sitter" path="/sitter/logout.do" redirect="true" />
+		</action>
+		
+		<action path="/seeker/logout" type="com.hm.app.action.LogoutAction"
+			scope="request">
 			<forward name="success" path="/index.jsp" redirect="true" />
 			<forward name="error" path="/WEB-INF/error.jsp" />
 		</action>
@@ -133,12 +140,12 @@
 
 		<action path="/seeker/deleteJob" name="apply"
 			type="com.hm.app.action.DeleteJobCaptureAction" scope="request"
-			validate="false" input="/deleteJob.jsp">
+			validate="true" input="/deleteJob.jsp">
 			<forward name="success" path="/seeker/deleteJobConfirmation.do" redirect="true"/>
 		</action>
 		
 		
-		<action path="/seeker/deleteJobConfirmation"  name="apply"
+		<action path="/seeker/deleteJobConfirmation"  name="check"
 			type="com.hm.app.action.showApplicantAction" scope="request" validate="false"
 			input="/seeker/deleteJob">
 			<forward name="success" path="/deleteJobConfirmation.jsp"/>
@@ -185,13 +192,12 @@
 		<!-- ======================================Apply Job=============================================== -->
 
 		<action path="/sitter/applyJob" name="apply"
-			type="com.hm.app.action.ApplyJobAction" scope="request" validate="false"
+			type="com.hm.app.action.ApplyJobAction" scope="request" validate="true"
 			input="/jobList.jsp">
 			<forward name="error" path="/error.do" />
 			<forward name="success" path="/sitter/sitterConfirmation.do" redirect="true"/>
 		</action>
 		<action path="/sitter/sitterConfirmation"  name="apply"
-			type="com.hm.app.action.ApplyJobAction" scope="request" validate="false"
 			input="/jobList.jsp">
 			<forward name="success" path="/jobApplyConfirmation.jsp"/>
 		</action>

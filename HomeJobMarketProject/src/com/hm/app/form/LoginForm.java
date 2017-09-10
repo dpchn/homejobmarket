@@ -35,19 +35,24 @@ public class LoginForm extends  ActionForm{
 		//LoginFrom check = 
 		System.out.println("Login checkinf..."+email);
 		UserService login = new UserService();
-		LoginForm form = new LoginForm();
+		
 		boolean emailStatus = true;
-		if(email.isEmpty() || email==null || !email.matches(pattern.emailPattern)) {
+		if( email==null ||email.isEmpty() || !email.matches(pattern.emailPattern)) {
 			errors.add("email" , new ActionMessage("email"));
 			System.out.println("Login checkin....................");
 		}
-		if(password.isEmpty() || password==null )
+		if( password==null || password.isEmpty() )
 			errors.add("password", new ActionMessage("password"));
 		
 		if(!login.isExit(email) &&(!email.isEmpty() && email!=null)) {
 			emailStatus = false;
 			errors.add("emailNotExist",new ActionMessage("emailNotExist"));
 		}
+		
+		if((!email.isEmpty() && email!=null) && login.checkUser(email, password)==null ) {
+			errors.add("wrongPassword",new ActionMessage("wrongPassword"));
+		}
+		
 		if (!email.isEmpty() && email!=null && emailStatus)
 			if(!login.isActive(email))
 			errors.add("notActive",new ActionMessage("notActive"));

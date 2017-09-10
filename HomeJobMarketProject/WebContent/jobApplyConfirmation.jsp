@@ -13,7 +13,7 @@
 		<input type="submit" value="Home" />
 </form>
 
-<form action="showPostedJob.do">
+<form action="jobList.do">
 		<input type="submit" value="Back" />
 </form>
 </body>

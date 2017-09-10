@@ -16,9 +16,11 @@ public class RegisterForm extends ValidatorForm {
 	private String phoneNo;
 	private String email;
 	private String password;
-	private int noChild;
-	// private enum type {seeker,sitter};
+	private String noChild;
 	private String type;
+	private enum checkType {
+		seeker, sitter
+	};
 
 	public String getPassword() {
 		return password;
@@ -28,11 +30,11 @@ public class RegisterForm extends ValidatorForm {
 		this.password = password;
 	}
 
-	public int getNoChild() {
+	public String getNoChild() {
 		return noChild;
 	}
 
-	public void setNoChild(int noChild) {
+	public void setNoChild(String noChild) {
 		this.noChild = noChild;
 	}
 
@@ -91,31 +93,31 @@ public class RegisterForm extends ValidatorForm {
 		ConstantPattern cp = new ConstantPattern();
 		
 		if (fName.isEmpty() || fName == null || !fName.matches(cp.namePattern)) {
-			System.out.println("fName : "+fName.matches(cp.namePattern));
 			actionErrors.add("fName", new ActionMessage("fName"));
 		}
 
 		if (lName.isEmpty() || lName == null || !lName.matches(cp.namePattern)) {
-			System.out.println("lName : "+lName.matches(cp.namePattern));
 			actionErrors.add("lName", new ActionMessage("lName"));
 		}
 
 		if (email.isEmpty() || email == null || !email.matches(cp.emailPattern)) {
-			System.out.println("email : "+email.matches(cp.emailPattern));
 			actionErrors.add("email", new ActionMessage("email"));
 		}
 
 		if (phoneNo.isEmpty() || phoneNo == null || !phoneNo.matches(cp.phonePattern)) {
-			System.out.println("phoneno : "+phoneNo.matches(cp.phonePattern));
 			actionErrors.add("phone", new ActionMessage("phone"));
 		}
 
 		if (password.isEmpty() || password == null) {
-			System.out.println("Password");
 			actionErrors.add("password", new ActionMessage("password"));
 		}
 		if(type==null || type.isEmpty())
 			actionErrors.add("type", new ActionMessage("type"));
+		
+		if(noChild==null || noChild.isEmpty() || noChild.matches(cp.namePattern)){
+			System.out.println("No of child is "+ noChild);
+			actionErrors.add("child", new ActionMessage("child"));
+		}
 		return actionErrors;
 	}
 
@@ -128,8 +130,18 @@ public class RegisterForm extends ValidatorForm {
 		email = null;
 		type = null;
 		password = null;
-		noChild = 0;
+		noChild = null;
 
+	}
+	
+	/*
+	 * Check type
+	 */
+	static boolean checkType(String type) {
+		for (checkType c : checkType.values())
+			if (c.name().equals(type))
+				return false;
+		return true;
 	}
 
 }

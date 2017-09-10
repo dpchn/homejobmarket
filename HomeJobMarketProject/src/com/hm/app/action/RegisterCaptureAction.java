@@ -28,11 +28,10 @@ public class RegisterCaptureAction extends Action {
 		System.out.println(" reg Inside action...");
 		registerService = new UserService();
 		int id = registerService.addUser(user.getfName(), user.getlName(), user.getphoneNo(), user.getEmail(),
-				user.getPassword(), user.getType(), user.getNoChild());
+				user.getPassword(), user.getType(), Integer.valueOf(user.getNoChild()));
 
 		if (id > 0) {
 			System.out.println(user.getfName());
-			List<Object> userlist = new ArrayList<>();
 			HashMap<String, Object> data = new HashMap();
 			data.put("fName", user.getfName());
 			data.put("lName", user.getlName());
@@ -40,16 +39,13 @@ public class RegisterCaptureAction extends Action {
 			data.put("email", user.getEmail());
 			data.put("noOfChild", user.getNoChild());
 			
-			userlist.add(data);
+	
 			HttpSession httpSession = request.getSession();
 			httpSession.setAttribute("type", user.getType());
-			httpSession.setAttribute("data", userlist);
+			httpSession.setAttribute("data", data);
 			httpSession.setAttribute("id", id);
-			System.out.println("Id is :" + id);
-			if (user.getType().equals("seeker"))
-				return mapping.findForward("seeker");
-			else if (user.getType().equals("sitter"))
-				return mapping.findForward("sitter");
+			return mapping.findForward(user.getType());
+			
 		}
 		return mapping.findForward("error");
 	}

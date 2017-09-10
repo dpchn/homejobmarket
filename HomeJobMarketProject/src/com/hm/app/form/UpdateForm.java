@@ -15,7 +15,7 @@ public class UpdateForm  extends ActionForm{
 	private String lName;
 	private String phone;
 	private String email;
-	private int noOfChild;
+	private String noChild;
 	
 	
 	public int getId() {
@@ -49,11 +49,11 @@ public class UpdateForm  extends ActionForm{
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public int getNoChild() {
-		return noOfChild;
+	public String getNoChild() {
+		return noChild;
 	}
-	public void setNoChild(int noChild) {
-		this.noOfChild = noChild;
+	public void setNoChild(String noChild) {
+		this.noChild = noChild;
 	}
 	
 	@Override
@@ -70,6 +70,10 @@ public class UpdateForm  extends ActionForm{
 		if(phone==null || phone.isEmpty() || !phone.matches(pattern.phonePattern)) {
 			errors.add("phone", new ActionMessage("phone"));
 		}
+		if(noChild==null || noChild.isEmpty() || noChild.matches(pattern.namePattern)) {
+			System.out.println("No of child "+ noChild);
+			errors.add("child", new ActionMessage("child"));
+		}
 		
 		return errors;
 	}
@@ -79,8 +83,7 @@ public class UpdateForm  extends ActionForm{
 		fName=null;
 		lName = null;
 		phone = null;
-		noOfChild = 0;
-		super.reset(mapping, request);
+		noChild = null;
 	}
 
 }

@@ -29,7 +29,7 @@
 			<column name="t_active" />
 		</property>
 		
-		<many-to-one name="postedBy" class="com.hm.app.model.User" column="posted_by" cascade="all"/>
+		<many-to-one name="postedBy" class="com.hm.app.model.User" column="posted_by" cascade="all" />
    		
    		<set name= "applications" table="application" cascade="all" lazy = "false">
 			<key column="job_id"></key>

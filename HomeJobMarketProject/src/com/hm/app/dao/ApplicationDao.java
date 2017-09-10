@@ -1,6 +1,8 @@
 package com.hm.app.dao;
 
 import javax.management.*;
+import javax.persistence.EntityManager;
+
 import org.hibernate.Query;
 import javax.servlet.http.HttpSession;
 
@@ -23,20 +25,20 @@ public class ApplicationDao {
 		Session session = CreateSession.sessionFactory.openSession();
 		Transaction transaction = session.beginTransaction();
 		try {
-			System.out.println("Model " + model.getJobId());
 			Integer appId = (Integer) session.save(model);
-			System.out.println("App id :" + appId);
+			
 			transaction.commit();
-			session.close();
+		//	.EntityManager.su
+			
 			return appId;
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Exception :" + e.getMessage());
 			transaction.rollback();
-			session.close();
 			return 0;
+		}finally{
+			session.close();
 		}
-
 	}
 	
 	

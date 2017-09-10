@@ -4,15 +4,15 @@
 <hibernate-mapping>
 	<class name="com.hm.app.model.Application" table="application">
 		<id name="id" type="int">
-			<column name="appId" />
+			<column name="app_id" />
 			<generator class="increment" />
 		</id>
 		 <property name="temporaryActive">
 			<column name="t_active" />
 		</property>
 		
-		<many-to-one name="applyBy" class="com.hm.app.model.User" column="apply_by" cascade="all" />
-		<many-to-one name="jobId" class="com.hm.app.model.Job" column="job_id" cascade="all" />
+		<many-to-one name="applyBy" class="com.hm.app.model.User" column="apply_by" not-null="true"  cascade="all" />
+		<many-to-one name="jobId" class="com.hm.app.model.Job" column="job_id" not-null="true" cascade="all" />
 		
 	</class>
 </hibernate-mapping>

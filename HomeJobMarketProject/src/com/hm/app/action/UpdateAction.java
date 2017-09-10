@@ -18,13 +18,13 @@ public class UpdateAction extends Action {
 		System.out.println("Inside Update Action...Fisrt ");
 		UpdateForm updateForm = (UpdateForm) form;
 	
-		List<Integer> data = (List<Integer>)request.getSession().getAttribute("data");
-		List<Object> updatelist = new ArrayList<>();
+		Map data = (Map)request.getSession().getAttribute("data");
+		Map updatelist = new HashMap();
 		if (request.getSession().getAttribute("updateData") == null
 				|| request.getSession().getAttribute("updateData").equals("")) {
 			System.out.println("Checking data in data ins Update");
 			System.out.println(data);
-		updatelist.addAll(data);
+		updatelist = data;
 			
 		}else {
 			System.out.println("Else");
@@ -34,7 +34,11 @@ public class UpdateAction extends Action {
 			obj.put("email", updateForm.getEmail());
 			obj.put("noOfChild", updateForm.getNoChild());
 			obj.put("phone", updateForm.getPhone());
-			updatelist.add(obj);
+
+			updatelist = obj;
+			if(updateForm.getfName()==null ||updateForm.getlName()==null ||
+					updateForm.getEmail()==null || updateForm.getNoChild()==null  || updateForm.getPhone()==null )
+			updatelist = data;
 			System.out.println(updatelist);
 		}
 

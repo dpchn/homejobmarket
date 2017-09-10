@@ -39,9 +39,9 @@
 			<one-to-many class="com.hm.app.model.Job"/>
 		</set>
 		
-		<set name= "applications" table="application" cascade="all" lazy = "false">
+		<set name= "applications" table="application" cascade="all" lazy = "false" >
 			<key column="apply_by"></key>
-			<one-to-many class="com.hm.app.model.Application"/>
+			<one-to-many class="com.hm.app.model.Application" />
 		</set>
 		
 

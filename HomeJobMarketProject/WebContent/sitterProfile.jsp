@@ -11,24 +11,22 @@
 	<h1>Welcome to Sitter Profile</h1>
 
 	<table border="1">
-		<c:forEach var="item" items="${data}">
-			<tr>
-				<th>First Name :</th>
-				<td>${item.fName}</td>
-			</tr>
-			<tr>
-				<th>Last Name :</th>
-				<td>${item.lName}</td>
-			</tr>
-			<tr>
-				<th>Phone No:</th>
-				<td>${item.phone}</td>
-			</tr>
-			<tr>
-				<th>Email Id :</th>
-				<td>${item.email}</td>
-			</tr>
-		</c:forEach>
+		<tr>
+			<th>First Name :</th>
+			<td>${data.fName}</td>
+		</tr>
+		<tr>
+			<th>Last Name :</th>
+			<td>${data.lName}</td>
+		</tr>
+		<tr>
+			<th>Phone No:</th>
+			<td>${data.phone}</td>
+		</tr>
+		<tr>
+			<th>Email Id :</th>
+			<td>${data.email}</td>
+		</tr>
 	</table>
 
 	<form action="update.do" method="POST">

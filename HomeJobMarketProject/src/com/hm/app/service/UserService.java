@@ -49,7 +49,7 @@ public class UserService {
 	 * Login
 	 */
 
-	public List<Object> checkUser(String email, String password) {
+	public Map checkUser(String email, String password) {
 		System.out.println("insoed servie login...");
 		String SALT = "SECRETE";
 		String saltedPassword = SALT + password;
@@ -57,19 +57,17 @@ public class UserService {
 		user = userDao.loginUser(email, hashedPassword);
 		if (user == null)
 			return null;
-		List<Object> userlist = new ArrayList<>();
 		Map<String, Object> details = new HashMap<String, Object>();
 		details.put("fName", user.getfName());
 		details.put("lName", user.getlName());
 		details.put("phone", user.getphoneNo());
 		details.put("email", user.getEmail());
+		
 		details.put("noOfChild", user.getNoOfChild());
 		details.put("id", user.getId());
 		details.put("type", user.getType().toString());
-		userlist.add(user.getId());
-		userlist.add(user.getType().toString());
-		userlist.add(details);
-		return userlist;
+		
+		return details;
 	}
 
 	/*

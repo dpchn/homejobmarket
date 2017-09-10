@@ -8,37 +8,33 @@
 		<tr>
 			<th>First Name :</th>
 			<td><html:text property="fName" /></td>
-			<td><font color="red"> <html:errors property="fName" />
-			</font></td>
+			<td> <html:errors property="fName" /> </td>
 
 		</tr>
 		<tr>
 			<th>Last Name :</th>
 			<td><html:text property="lName" /></td>
-			<td><font color="red"> <html:errors property="lName" />
-			</font></td>
+			<td><html:errors property="lName" /></td>
 		</tr>
 		<tr>
 			<th>Phone No. :</th>
 			<td><html:text property="phoneNo" /></td>
-			<td><font color="red"> <html:errors property="phone" />
-			</font></td>
+			<td> <html:errors property="phone" /></td>
 		</tr>
 		<tr>
 			<th>Email id :</th>
 			<td><html:text property="email" /></td>
-			<td><font color="red"> <html:errors property="email" />
-			</font></td>
+			<td> <html:errors property="email" /></td>
 		</tr>
 		<tr>
 			<th>Password :</th>
 			<td><html:password property="password" /></td>
-			<td><font color="red"> <html:errors property="password" />
-			</font></td>
+			<td> <html:errors property="password" /></td>
 		</tr>
 		<tr>
 			<th>No. of Child :</th>
-			<td colspan="2"><html:text property="noChild" /></td>
+			<td ><html:text property="noChild" /></td>
+			<td> <html:errors property="child" /></td>
 		</tr>
 		<tr>
 			<th>Category :</th>
@@ -48,8 +44,7 @@
 					<html:option value="sitter" />
 				</html:select>
 			</td>
-			<td><font color="red"> <html:errors property="type" />
-			</font></td>
+			<td> <html:errors property="type" /></td>
 		</tr>
 		<tr>
 			<th ><html:submit>Register</html:submit>

@@ -89,6 +89,31 @@ public class JobDao {
 	
 	
 	/*
+	 * Verify Job for User
+	 */
+	
+	public Integer getPostedJob(Integer userId, Integer jobId){
+		Session session = CreateSession.sessionFactory.openSession();
+		Transaction transaction = session.beginTransaction();
+		org.hibernate.Query query  = session.createQuery("from com.hm.app.model.Job where posted_by=:userId and jobId=:jobId");
+		query.setParameter("userId", userId);
+		query.setParameter("jobId", jobId);
+		
+		Integer job = query.getResultList().size();
+		System.out.println("gtePosted job......" + job+ " uid "+userId+" jid"+jobId);
+		transaction.commit();
+		session.close();
+		return job;
+	}
+	
+	
+	/*public static void main(String[] args) {
+		new JobDao().getPostedJob(26, 100);
+	}*/
+	
+	
+	
+	/*
 	 * Delete Job
 	 * 
 	 */

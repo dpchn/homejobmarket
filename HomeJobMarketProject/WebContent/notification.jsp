@@ -8,19 +8,22 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>You are "${type}" can not do this.</h1>
+	<h1>You are ${type} can not do this.</h1>
 	<p>
 		Please login create account as
 		<c:if test="${type=='seeker' }">
 			<c:out value="sitter "></c:out>
+			<form action="seeker/logout.do" method="POST">
+		<input type="submit" value="Logout" />
+	</form>
 		</c:if>
 
 		<c:if test="${type=='sitter'}">
 			<c:out value="seeker "></c:out>
-		</c:if>
-		then login.
-	<form action="logout.do" method="POST">
+			<form action="sitter/logout.do" method="POST">
 		<input type="submit" value="Logout" />
 	</form>
+		</c:if>
+		then login.
 </body>
 </html>
