@@ -18,7 +18,7 @@ public class ApplyJobAction extends Action {
 			if (request.getSession() != null && request.getSession().getAttribute("type").equals("sitter")) {
 				int memberId = (Integer) request.getSession().getAttribute("id");
 				int jobId = applyJobForm.getJobId();
-				System.out.println("job id in apply action : " + jobId + " memerId : " + memberId);
+				//System.out.println("job id in apply action : " + jobId + " memerId : " + memberId);
 				applicationService.applyJob(jobId, memberId);
 				
 				return mapping.findForward("success");

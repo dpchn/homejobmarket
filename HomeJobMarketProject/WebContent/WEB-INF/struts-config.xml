@@ -197,16 +197,19 @@
 			<forward name="error" path="/error.do" />
 			<forward name="success" path="/sitter/sitterConfirmation.do" redirect="true"/>
 		</action>
-		<action path="/sitter/sitterConfirmation"  name="apply"
-			input="/jobList.jsp">
+		<!-- <action path="/sitter/sitterConfirmation"  name="apply"
+			input="/jobList.jsp" validate="false">
 			<forward name="success" path="/jobApplyConfirmation.jsp"/>
-		</action>
+		</action> -->
 		
-		<action path="/sitter/sitterConfirmation"  name="apply"
+		<action path="/sitter/sitterConfirmation" type="org.apache.struts.actions.ForwardAction" 
+			parameter="/jobApplyConfirmation.jsp" />
+		
+		<!-- <action path="/sitter/sitterConfirmation"  name="apply"
 			type="com.hm.app.action.ApplyJobAction" scope="request" validate="false"
 			input="/jobList.jsp">
 			<forward name="success" path="/jobApplyConfirmation.jsp"/>
-		</action>
+		</action> -->
 
 		<!-- ===================================================================================== -->
 

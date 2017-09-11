@@ -15,7 +15,6 @@ public class UpdateAction extends Action {
 	@Override
 	public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		System.out.println("Inside Update Action...Fisrt ");
 		UpdateForm updateForm = (UpdateForm) form;
 	
 		Map data = (Map)request.getSession().getAttribute("data");
@@ -23,11 +22,9 @@ public class UpdateAction extends Action {
 		if (request.getSession().getAttribute("updateData") == null
 				|| request.getSession().getAttribute("updateData").equals("")) {
 			System.out.println("Checking data in data ins Update");
-			System.out.println(data);
 		updatelist = data;
 			
 		}else {
-			System.out.println("Else");
 			Map<String, Object> obj = new HashMap<>();
 			obj.put("fName", updateForm.getfName());
 			obj.put("lName", updateForm.getlName());

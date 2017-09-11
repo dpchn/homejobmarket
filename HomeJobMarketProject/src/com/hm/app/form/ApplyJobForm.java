@@ -25,6 +25,7 @@ public class ApplyJobForm  extends ActionForm{
 	@Override
 	public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
 		Integer userId = (Integer) request.getSession().getAttribute("id");
+		System.out.println("Job id at apply   :"+jobId);
 		System.out.println("User id is "+userId);
 		//System.out.println("Rsutl "+service.verifyJob(userId, jobId));
 		ActionErrors errors = new ActionErrors();

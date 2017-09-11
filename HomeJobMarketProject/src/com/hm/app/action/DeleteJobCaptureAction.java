@@ -20,8 +20,6 @@ public class DeleteJobCaptureAction extends Action{
 	
 		jobForm = (ApplyJobForm)form;
 		int jobId = jobForm.getJobId();
-		System.out.println("Delete hjob id is" + jobId);
-		System.out.println("Delete job is "+ jobService.deleteJob(jobId));
 		return mapping.findForward("success");
 	}
 

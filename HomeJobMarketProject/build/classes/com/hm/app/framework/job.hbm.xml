@@ -31,7 +31,7 @@
 		
 		<many-to-one name="postedBy" class="com.hm.app.model.User" column="posted_by" cascade="all" />
    		
-   		<set name= "applications" table="application" cascade="all" lazy = "false">
+   		<set name= "applications" table="application" cascade="all" lazy = "false" inverse="true">
 			<key column="job_id"></key>
 			<one-to-many class="com.hm.app.model.Application"/>
 		</set>

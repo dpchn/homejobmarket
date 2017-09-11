@@ -53,6 +53,7 @@ public class UpdateForm  extends ActionForm{
 		return noChild;
 	}
 	public void setNoChild(String noChild) {
+		
 		this.noChild = noChild;
 	}
 	
@@ -61,7 +62,7 @@ public class UpdateForm  extends ActionForm{
 		ActionErrors errors = new ActionErrors();
 		ConstantPattern pattern = new ConstantPattern();
 		if(fName==null || fName.isEmpty() || !fName.matches(pattern.namePattern)) {
-			System.out.println("fName :"+fName);
+			System.out.println("fName :");
 			errors.add("fName", new ActionMessage("fName"));
 		}
 		if(lName==null || lName.isEmpty() || !lName.matches(pattern.namePattern)) {
@@ -70,7 +71,7 @@ public class UpdateForm  extends ActionForm{
 		if(phone==null || phone.isEmpty() || !phone.matches(pattern.phonePattern)) {
 			errors.add("phone", new ActionMessage("phone"));
 		}
-		if(noChild==null || noChild.isEmpty() || noChild.matches(pattern.namePattern)) {
+		if(request.getSession().getAttribute("type").equals("seeker") && (noChild==null || noChild.isEmpty() || noChild.matches(pattern.namePattern))) {
 			System.out.println("No of child "+ noChild);
 			errors.add("child", new ActionMessage("child"));
 		}

@@ -14,12 +14,24 @@
     </init-param>
     <load-on-startup>1</load-on-startup>
   </servlet>
+  
+  
   <servlet-mapping>
     <servlet-name>action</servlet-name>
     <url-pattern>*.do</url-pattern>
   </servlet-mapping>
-<!--   <servlet-mapping>
-    <servlet-name>action</servlet-name>
-    <url-pattern>jobCreate.do</url-pattern>
-  </servlet-mapping> -->
+  
+  
+  <filter>
+  	<filter-name>HibernateSession</filter-name>
+  	<filter-class>com.hm.app.framework.HibernateSessionFilter</filter-class>
+  </filter>
+  
+  <filter-mapping>
+  	<filter-name>HibernateSession</filter-name>
+  	<url-pattern>*.do</url-pattern>
+  </filter-mapping>
+  
+  
+
 </web-app>

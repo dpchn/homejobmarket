@@ -26,10 +26,15 @@ public class UpdateCaptureAction extends Action {
 		updateForm = (UpdateForm) form;
 		boolean res = false;
 			request.getSession().removeAttribute("updateData");
-			
+			Map obj1 = (Map) request.getSession().getAttribute("data");
+			int child = 0;
+			if(request.getSession().getAttribute("type").equals("sitter"))
+				child = (Integer) obj1.get("noOfChild");
+			else
+				child = Integer.valueOf(updateForm.getNoChild());
 			if (request.getSession() != null) {
 				res = updateService.updateData((Integer) request.getSession().getAttribute("id"), updateForm.getfName(),
-						updateForm.getlName(), updateForm.getEmail(), updateForm.getPhone(), Integer.valueOf(updateForm.getNoChild()));
+						updateForm.getlName(), updateForm.getEmail(), updateForm.getPhone(), child);
 			} 
 
 			if (res) {

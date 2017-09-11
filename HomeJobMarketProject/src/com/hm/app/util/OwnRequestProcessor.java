@@ -33,7 +33,7 @@ public class OwnRequestProcessor extends RequestProcessor {
 	//private OwnRequestProcessor processor = new OwnRequestProcessor();
 	@Override
 	protected boolean processPreprocess(HttpServletRequest request, HttpServletResponse response) {
-
+		System.out.println(request.getServletPath());
 		HttpSession session = request.getSession();
 		currentRequest.set(request);
 		currentResponse.set(response);
@@ -57,9 +57,6 @@ public class OwnRequestProcessor extends RequestProcessor {
 			return true;
 		}*/
 		if (request.getServletPath().equals("/logout.do")) {
-			return true;
-		}
-		if (request.getServletPath().equals("/fullLogout.do")) {
 			return true;
 		}
 		

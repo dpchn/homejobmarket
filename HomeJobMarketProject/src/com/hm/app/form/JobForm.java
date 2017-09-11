@@ -112,13 +112,19 @@ public class JobForm extends ActionForm {
 			errors.add("endTime", new ActionMessage("endTime"));
 		if (payPerHour <= 0)
 			errors.add("payPerHour", new ActionMessage("payPerHour"));
-		if (startTime != null && !startTime.isEmpty() && !isThisTimeValid(startTime))
+		boolean startTimeValidFormat = true;
+		if (startTime != null && !startTime.isEmpty() && !isThisTimeValid(startTime)) {
+			System.out.println("Check 1");
 			errors.add("invalidStartTime", new ActionMessage("invalidStartTime"));
-		if (endTime != null && !endTime.isEmpty() && !isThisTimeValid(endTime))
+			startTimeValidFormat = false;
+		}
+		if (endTime != null && !endTime.isEmpty() && !isThisTimeValid(endTime)) {
 			errors.add("invalidEndTime", new ActionMessage("invalidEndTime"));
 		
+		}
+		
 		if (startDate != null && endDate != null && !endDate.isEmpty() && startTime != null && endTime != null
-				&& !startDate.isEmpty() && !startTime.isEmpty() && !endTime.isEmpty()) {
+				&& !startDate.isEmpty() && startTimeValidFormat &&  !startTime.isEmpty() && !endTime.isEmpty()) {
 			boolean check1 = true, check2 = true;
 			if (!JobForm.isThisDateValid(endDate)) {
 				check1 = false;
@@ -129,9 +135,10 @@ public class JobForm extends ActionForm {
 				errors.add("startDateFormat", new ActionMessage("startDateFormat"));
 			}
 			
-			if(check2 && !isStartDateGreaterThanCurrentDate(startDate, startTime))
+			if(check2 &&  !isStartDateGreaterThanCurrentDate(startDate, startTime))
 				errors.add("startGreaterThanCurrent", new ActionMessage("startGreaterThanCurrent"));
-
+			
+			
 			if (check1 && check2)
 				if (!JobForm.isBeforeDate(startDate, endDate, startTime, endTime))
 					errors.add("dateBefore", new ActionMessage("dateBefore"));

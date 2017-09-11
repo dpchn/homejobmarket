@@ -4,7 +4,7 @@
 <hibernate-mapping>
 	<class name="com.hm.app.model.Application" table="application">
 		<id name="id" type="int">
-			<column name="app_id" />
+			<column name="appId" />
 			<generator class="increment" />
 		</id>
 		 <property name="temporaryActive">

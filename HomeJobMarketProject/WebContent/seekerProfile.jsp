@@ -1,4 +1,4 @@
-<%@page import="java.util.*"%>
+
 <%@page import="org.omg.CosNaming.IstringHelper"%>
 <%@taglib prefix="html" uri="http://struts.apache.org/tags-html"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -14,7 +14,7 @@
 </head>
 <body>
 	<h1>Welcome to Seeker Profile</h1>
-	${OwnRequestProcessor.getCurrentRequest().get().getParameter("email")}
+	<%-- asdfds <%= OwnRequestProcessor.getCurrentRequest().get().getParameterMap() %> --%>
 	<table border="1">
 		<tr>
 			<th>First Name :</th>

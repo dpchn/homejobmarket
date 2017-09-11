@@ -22,23 +22,24 @@ public class LoginCaptureAction extends Action {
 		System.out.println("inside capture login action....");
 		RequestDispatcher rd;
 		LoginForm user = (LoginForm) form;
-		ThreadLocal<ServletRequest>  request2 = OwnRequestProcessor.getCurrentRequest();
-		System.out.println("Therad Local reuqest "+ OwnRequestProcessor.getCurrentRequest().get().getParameter("email"));
-			System.out.println("Email is exist");
-			Map result = login.checkUser(user.getEmail(), user.getPassword());
-			HttpSession httpSession = request.getSession();
-			if (result != null) {
-				Integer id = (Integer) result.get("id");
-				String type = (String) result.get("type");
-				result.remove("id");
-				result.remove("type");
-				httpSession.setAttribute("id", id);
-				httpSession.setAttribute("data", result);
-				System.out.println("Data at loign tim " + result);
-				httpSession.setAttribute("type", type);
-				return mapping.findForward(type.toString().trim());
-			}
-	
+		ThreadLocal<ServletRequest> request2 = OwnRequestProcessor.getCurrentRequest();
+		System.out
+				.println("Therad Local reuqest " + OwnRequestProcessor.getCurrentRequest().get().getParameter("email"));
+
+		Map result = login.checkUser(user.getEmail(), user.getPassword());
+		HttpSession httpSession = request.getSession();
+		if (result != null) {
+			Integer id = (Integer) result.get("id");
+			String type = (String) result.get("type");
+			result.remove("id");
+			result.remove("type");
+			httpSession.setAttribute("id", id);
+			httpSession.setAttribute("data", result);
+
+			httpSession.setAttribute("type", type);
+			return mapping.findForward(type.toString().trim());
+		}
+
 		return mapping.findForward("error");
 	}
 

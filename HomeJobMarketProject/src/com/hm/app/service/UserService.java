@@ -21,12 +21,12 @@ public class UserService {
 		return true;
 	}
 
-	/*
+	/*******************************
 	 * Register Method
+	 * ************************
 	 */
 	public int addUser(String fName, String lName, String phoneNo, String email, String password, String type,
 			int noChild) {
-		System.out.println("Inside service erg...");
 		String SALT = "SECRETE";
 		String saltedPassword = SALT + password;
 		String hashedPassword = generateHash(saltedPassword);
@@ -45,12 +45,12 @@ public class UserService {
 			return 0;
 	}
 
-	/*
+	/****************************************************8
 	 * Login
+	 * **************************************************
 	 */
 
 	public Map checkUser(String email, String password) {
-		System.out.println("insoed servie login...");
 		String SALT = "SECRETE";
 		String saltedPassword = SALT + password;
 		String hashedPassword = generateHash(saltedPassword);
@@ -70,8 +70,9 @@ public class UserService {
 		return details;
 	}
 
-	/*
+	/*********************************************
 	 * Update Profile
+	 * *******************************************
 	 */
 	public boolean updateData(Integer id, String fName, String lName, String email, String phone, int noOfChild) {
 		user = userDao.findId(id);
@@ -80,12 +81,13 @@ public class UserService {
 		user.setEmail(email);
 		user.setphoneNo(phone);
 		user.setNoOfChild(noOfChild);
-		System.out.println("Inside update data service ....");
 		return userDao.update(user);
 	}
 
-	/*
+	
+	/*************************************************
 	 * User Account Deactivate
+	 * ***********************************************
 	 */
 
 	public boolean deActivate(Integer id, String type) {
@@ -98,7 +100,6 @@ public class UserService {
 	}
 
 	public List<Object> getNoOfApplicantForApplication(Integer jobId) {
-		System.out.println("Job id is " + jobId);
 		List<Application> application = jobDao.getNoOfApplicantforJob(jobId);
 		List<Object> applicants = new ArrayList<>();
 		application.stream().forEach(x -> {
@@ -114,8 +115,9 @@ public class UserService {
 		return applicants;
 	}
 
-	/*
+	/**********************************************************************
 	 * Hashing Fucntion
+	 * ****************************************
 	 */
 
 	public String generateHash(String input) {
@@ -133,7 +135,6 @@ public class UserService {
 		} catch (NoSuchAlgorithmException e) {
 			// handle error here.
 		}
-
 		return hash.toString();
 	}
 

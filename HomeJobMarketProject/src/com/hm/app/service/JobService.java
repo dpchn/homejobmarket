@@ -85,13 +85,9 @@ public class JobService {
 	 *************************************************************************************
 	 */
 	public Integer applyJob(Integer jobId, Integer memberId) {
-		System.out.println("Member id : " + memberId);
-
-		
 		application.setJobId(jobDao.findJob(jobId));
 		application.setApplyBy(userDao.findId(memberId));
 		application.setTemporaryActive("true");
-
 		return applicationDao.apply(application);
 	}
 
@@ -144,19 +140,22 @@ public class JobService {
 	}
 
 	
+	
+	
 	/*
 	 * Check Job Exist
 	 */
-	
 	public boolean isJobExist(int jobId){
 		return jobDao.findJob(jobId)!=null;
 	}
+	
+
+	
 	
 	
 	/*
 	 * Verify Job belong to User 
 	 */
-	
 	
 	public boolean verifyJob(int userId, int jobId){
 		return jobDao.getPostedJob(userId, jobId) != 0;
