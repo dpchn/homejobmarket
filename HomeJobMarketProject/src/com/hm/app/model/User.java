@@ -2,7 +2,13 @@ package com.hm.app.model;
 
 import java.util.Set;
 
-public class User {
+public class User implements TrackActivity {
+
+	@Override
+	public boolean equals(Object obj) {
+		
+		return obj instanceof User && ((User)obj).getId() == getId();
+	}
 
 	private int id;
 	private String fName;
@@ -115,5 +121,15 @@ public class User {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	@Override
+	public int getUserId() {
+		return id;
+	}
+
+	@Override
+	public String getModelType() {
+		return "User";
 	}
 }

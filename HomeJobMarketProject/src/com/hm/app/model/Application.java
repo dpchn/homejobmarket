@@ -1,11 +1,17 @@
 package com.hm.app.model;
 
-public class Application {
+public class Application  implements TrackActivity{
 	private int id;
 	private Job jobId;
 	private User applyBy;
 	private String temporaryActive;
 
+	@Override
+	public boolean equals(Object obj) {
+		
+		return obj instanceof Application && ((User)obj).getId() == getId();
+	}
+	
 	public String getTemporaryActive() {
 		return temporaryActive;
 	}
@@ -36,6 +42,18 @@ public class Application {
 
 	public void setApplyBy(User applyBy) {
 		this.applyBy = applyBy;
+	}
+
+	@Override
+	public int getUserId() {
+		User u = new User();
+		return u.getId();
+	}
+
+	@Override
+	public String getModelType() {
+		// TODO Auto-generated method stub
+		return "Application";
 	}
 
 }

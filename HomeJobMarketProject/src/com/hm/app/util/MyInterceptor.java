@@ -1,42 +1,183 @@
 package com.hm.app.util;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
-import org.hibernate.EmptyInterceptor;
+import org.hibernate.*;
 import org.hibernate.type.Type;
-import com.hm.app.dao.*;
+import com.hm.app.model.*;
+import com.hm.app.service.LogService;
 
+public class MyInterceptor implements Interceptor {
+	LogService logService = new LogService();
 
-public class MyInterceptor extends EmptyInterceptor{
+	List<Object> objects = new ArrayList<>();
 
 	@Override
-	public boolean onSave(Object entity, Serializable id, Object[] state, String[] propertyNames, Type[] types) {
-		System.out.println("Save action");
-		return super.onSave(entity, id, state, propertyNames, types);
+	public void afterTransactionBegin(Transaction transaction) {
+
+		// System.out.println("afterTransactionBegin....");
 	}
-	
-	public void onDelete(Object entity, Serializable id, Object[] state, String[] propertyNames, Type[] types) {
-		System.out.println("Delete Action...");
-		super.onDelete(entity, id, state, propertyNames, types);
-	}
-	
+
 	@Override
-	public boolean onFlushDirty(Object entity, Serializable id, Object[] currentState, Object[] previousState,
-			String[] propertyNames, Type[] types) {
-	/*	System.out.println("Update Action....");
-		return true;*/
-		if(entity instanceof UserDao) {
-			System.out.println("User Dao Access");
-			return true;
-		}
-		if(entity instanceof ApplicationDao) {
-			System.out.println("Application Dao access");
-			return true;
-		}
-		if(entity instanceof JobDao) {
-			System.out.println("Job Dao access");
-			return true;
-		}
+	public void afterTransactionCompletion(Transaction transaction) {
+		// System.out.println("afterTransactionCompletion...."+transaction.getClass());
+
+	}
+
+	@Override
+	public void beforeTransactionCompletion(Transaction transaction) {
+		// System.out.println("beforeTransactionCompletion.....");
+
+	}
+
+	@Override
+	public int[] findDirty(Object object, Serializable serializable, Object[] newValue, Object[] oldValue,
+			String[] strings, Type[] types) {
+		// System.out.println("findDirty...." + object.getClass().getName());
+
+		return null;
+	}
+
+	@Override
+	public Object getEntity(String string, Serializable serializable) throws CallbackException {
+		// System.out.println("getEntity....");
+		return null;
+	}
+
+	@Override
+	public String getEntityName(Object object) throws CallbackException {
+		/*
+		 * System.out.println("getEntityName...."+ object.getClass().getName());
+		 * if(object.getClass().getName().contains("User")) { User user = (User)object;
+		 * System.out.println("id is ==="+ user.getId());
+		 * logService.saveHistory(user.getId(), "Profile Updated at "+LocalDate.now());
+		 * }
+		 */
+		return null;
+	}
+
+	@Override
+	public Object instantiate(String string, EntityMode entityMode, Serializable serializable)
+			throws CallbackException {
+		// System.out.println("instantiate....");
+		return null;
+	}
+
+	@Override
+	public Boolean isTransient(Object object) {
+		// System.out.println("isTransient..........."+object);
+		return null;
+	}
+
+	@Override
+	public void onCollectionRecreate(Object object, Serializable serializable) throws CallbackException {
+		// System.out.println("onCollectionRecreate..........."+
+		// object.getClass().getName());
+
+	}
+
+	@Override
+	public void onCollectionRemove(Object object, Serializable serializable) throws CallbackException {
+		// System.out.println("onCollectionRemove......."+ object.getClass().getName());
+
+	}
+
+	@Override
+	public void onCollectionUpdate(Object object, Serializable serializable) throws CallbackException {
+		// System.out.println("onCollectionUpdate......."+ object.getClass().getName());
+
+	}
+
+	@Override
+	public void onDelete(Object object, Serializable serializable, Object[] arg2, String[] arg3, Type[] arg4)
+			throws CallbackException {
+		// System.out.println("onDelete......."+object.getClass().getName());
+
+	}
+
+	@Override
+	public boolean onFlushDirty(Object object, Serializable arg1, Object[] newValue, Object[] oldValue, String[] arg4,
+			Type[] arg5) throws CallbackException {
+		System.out.println("onFlushDirty......." + object.getClass().getName());
+		TrackActivity activity = (TrackActivity) object;
+		if(object instanceof User)
+		  if (!objects.contains(object)){ 
+			  logService.saveHistory(((User)object).getId()," Profile Update", activity.getId(),
+						activity.getModelType());
+		  }
 		return false;
 	}
+
+	@Override
+	public boolean onLoad(Object object, Serializable arg1, Object[] arg2, String[] arg3, Type[] arg4)
+			throws CallbackException {
+		// System.out.println("onLoad......."+ object.getClass().getName());
+		return false;
+	}
+
+	@Override
+	public String onPrepareStatement(String arg0) {
+		// System.out.println("onPrepareStatement......."+arg0);
+		return null;
+	}
+
+	@Override
+	public boolean onSave(Object object, Serializable id, Object[] newValue, String[] oldValue, Type[] arg4)
+			throws CallbackException {
+
+		System.out.println("onSave.........." + object.getClass().getName());
+
+		if (object instanceof TrackActivity && !objects.contains(object)) {
+			TrackActivity activity = (TrackActivity) object;
+			if (activity.getModelType().equals("User"))
+				logService.saveHistory(activity.getUserId(), activity.getModelType() + " Created", activity.getId(),
+						activity.getModelType());
+			else {
+				logService.saveHistory(MyInterceptor.getUserId(newValue), activity.getModelType() + " Created", activity.getId(),
+						activity.getModelType());
+			objects.add(MyInterceptor.getUserObject(newValue));
+			}
+
+			objects.add(object);
+		}
+
+		return false;
+	}
+
+	static int getUserId(Object[] newValue) {
+		for (Object o : newValue) {
+			if (o != null && o instanceof User) {
+				User user = (User) o;
+				return user.getId();
+			}
+		}
+		return 0;
+	}
+	
+	
+	static Object getUserObject(Object[] newValue) {
+		for (Object o : newValue) {
+			if (o != null && o instanceof User) {
+				User user = (User) o;
+				return user;
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public void postFlush(Iterator iterator) throws CallbackException {
+		// System.out.println("postFlush..........."+ iterator);
+
+	}
+
+	@Override
+	public void preFlush(Iterator arg0) throws CallbackException {
+		// System.out.println("preflush.......");
+
+	}
+
 }

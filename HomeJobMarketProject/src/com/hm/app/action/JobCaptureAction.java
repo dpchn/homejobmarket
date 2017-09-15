@@ -18,7 +18,6 @@ public class JobCaptureAction extends Action{
 	@Override
 	public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		System.out.println("Inside Job Action....");
 		job = (JobForm) form;
 		jobService = new JobService();
 		Integer jobId = 0;
@@ -32,6 +31,7 @@ public class JobCaptureAction extends Action{
 					job.reset(mapping, request);
 					return mapping.findForward("success");
 				}
+				
 				return mapping.findForward("error");
 		
 			}

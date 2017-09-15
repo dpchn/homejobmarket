@@ -32,14 +32,11 @@ public class LoginForm extends  ActionForm{
 	public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
 		ActionErrors errors = new ActionErrors();
 		ConstantPattern pattern = new ConstantPattern();
-		//LoginFrom check = 
-		System.out.println("Login checkinf..."+email);
 		UserService login = new UserService();
 		
 		boolean emailStatus = true;
 		if( email==null ||email.isEmpty() || !email.matches(pattern.emailPattern)) {
 			errors.add("email" , new ActionMessage("email"));
-			System.out.println("Login checkin....................");
 		}
 		if( password==null || password.isEmpty() )
 			errors.add("password", new ActionMessage("password"));
@@ -49,7 +46,7 @@ public class LoginForm extends  ActionForm{
 			errors.add("emailNotExist",new ActionMessage("emailNotExist"));
 		}
 		
-		if((!email.isEmpty() && email!=null) && login.checkUser(email, password)==null ) {
+		if(login.checkUser(email, password)==null && (!email.isEmpty() && email!=null) && emailStatus ) {
 			errors.add("wrongPassword",new ActionMessage("wrongPassword"));
 		}
 		

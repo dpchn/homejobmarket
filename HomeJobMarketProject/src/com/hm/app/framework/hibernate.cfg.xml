@@ -13,11 +13,12 @@
     	<mapping resource="com/hm/app/framework/user.hbm.xml"/> 
  	  	<mapping resource="com/hm/app/framework/job.hbm.xml"/>
  	  	<mapping resource="com/hm/app/framework/application.hbm.xml"/>
+ 	  	<mapping resource="com/hm/app/framework/logHistory.hbm.xml"/>
  	  
  	  <mapping class="com.hm.app.model.User"/>
  	  <mapping class="com.hm.app.model.Job"/>
  	  <mapping class="com.hm.app.model.Application"/>
- 	  
+ 	  <mapping class="com.hm.app.model.LogHistory"/>
 
   </session-factory>
 </hibernate-configuration>

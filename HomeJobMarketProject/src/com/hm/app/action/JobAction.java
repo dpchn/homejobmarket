@@ -2,9 +2,7 @@ package com.hm.app.action;
 
 import javax.servlet.http.*;
 import org.apache.struts.action.*;
-
 import com.hm.app.form.JobForm;
-import com.hm.app.form.RegisterForm;
 import com.hm.app.service.JobService;
 
 public class JobAction extends Action {

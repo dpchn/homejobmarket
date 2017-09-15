@@ -1,14 +1,9 @@
 package com.hm.app.dao;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.hibernate.Query;
+import java.util.*;
 import org.hibernate.Session;
-
 import com.hm.app.framework.HibernateSessionUtil;
 import com.hm.app.model.Application;
-import com.hm.app.util.CreateSession;
 
 public class ApplicationDao {
 

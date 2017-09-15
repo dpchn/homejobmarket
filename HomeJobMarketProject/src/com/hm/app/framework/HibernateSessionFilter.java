@@ -1,6 +1,8 @@
 package com.hm.app.framework;
 
 import java.io.IOException;
+import java.io.Serializable;
+import java.util.Iterator;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -10,12 +12,17 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
+import org.hibernate.CallbackException;
+import org.hibernate.EntityMode;
+import org.hibernate.Interceptor;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.type.Type;
+
+import com.hm.app.util.MyInterceptor;
 
 public class HibernateSessionFilter implements Filter {
 
-	
 	@Override
 	public void destroy() {
 		// TODO Auto-generated method stub
@@ -26,22 +33,19 @@ public class HibernateSessionFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		System.out.println("Inside Filter");
-		RequestDispatcher rd;
 		Session session = null;
 		Transaction transaction = null;
-		try
-		{
+		try {
 			session = HibernateSessionUtil.getSession();
 			transaction = session.beginTransaction();
 			chain.doFilter(request, response);
-		//	rd = rd.r
 			transaction.commit();
-		}
-		catch (Exception e) {
-			System.out.println("Hibernate Session exception "+e.getMessage());
+		} catch (Exception e) {
+			System.out.println("Hibernate Session exception " + e.getMessage());
+			RequestDispatcher requestDispatcher =  request.getRequestDispatcher("login.do");
+			requestDispatcher.forward(request, response);
 			transaction.rollback();
-		}
-		finally {
+		} finally {
 			session.close();
 			HibernateSessionUtil.destroySession();
 		}

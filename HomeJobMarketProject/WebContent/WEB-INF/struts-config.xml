@@ -64,12 +64,12 @@
 
 		<!-- <action path="/seeker/seekerProfile" type="org.apache.struts.actions.ForwardAction" 
 			parameter="/seekerProfile.jsp" /> -->
-		<action path="/seeker/seekerProfile" type="com.hm.app.action.SeekerProfileRedirectAction"
+		<action path="/seeker/seekerProfile" type="com.hm.app.action.ProfileRedirectAction"
 			validate="false" scope="request">
 			<forward name="success" path="/seekerProfile.jsp" />
 		</action>
 
-		<action path="/sitter/sitterProfile" type="com.hm.app.action.SitterProfileRedirectAction"
+		<action path="/sitter/sitterProfile" type="com.hm.app.action.ProfileRedirectAction"
 			validate="false" scope="request">
 			<forward name="success" path="/sitterProfile.jsp" />
 		</action>

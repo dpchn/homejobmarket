@@ -3,7 +3,7 @@ package com.hm.app.model;
 import java.util.Date;
 import java.util.Set;
 
-public class Job {
+public class Job  implements TrackActivity{
 	private int id;
 	private String jobTitle;
 	private String jobDes;
@@ -12,6 +12,12 @@ public class Job {
 	private User postedBy;
 	private String temporaryActive;
 	private Set<Application> applications;
+	
+	@Override
+	public boolean equals(Object obj) {
+		
+		return obj instanceof Job && ((User)obj).getId() == getId();
+	}
 	
 	public Set<Application> getApplications() {
 		return applications;
@@ -28,20 +34,7 @@ public class Job {
 	public void setTemporaryActive(String temporaryActive) {
 		this.temporaryActive = temporaryActive;
 	}
-/*
-	public Job() {
-		
-	}
-	
-	public Job(String jobTitle, String jobDes, Date startDate, Date endDate, User postedBy) {
-		this.jobTitle = jobTitle;
-		this.jobDes = jobDes;
-		this.startDate = startDate;
-		this.endDate = endDate;
-		this.postedBy = postedBy;
-		
-	}
-*/
+
 	public User getPostedBy() {
 		return postedBy;
 	}
@@ -100,6 +93,18 @@ public class Job {
 
 	public void setPayPerHour(float payPerHour) {
 		this.payPerHour = payPerHour;
+	}
+
+	@Override
+	public int getUserId() {
+		User u = new User();
+		return u.getId();
+	}
+
+	@Override
+	public String getModelType() {
+		// TODO Auto-generated method stub
+		return "Job";
 	}
 
 	

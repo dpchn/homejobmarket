@@ -1,11 +1,8 @@
 package com.hm.app.dao;
 
 import org.hibernate.*;
-
 import com.hm.app.framework.HibernateSessionUtil;
 import com.hm.app.model.User;
-import com.hm.app.util.CreateSession;
-import com.hm.app.util.MyInterceptor;
 
 public class UserDao {
 
@@ -27,10 +24,9 @@ public class UserDao {
 	 *********************************************************************************
 	 */
 	public boolean isExist(String email) {
-		Session session = CreateSession.sessionFactory.openSession();
+		Session session = HibernateSessionUtil.getSession();
 		org.hibernate.Query query = session.createQuery("from com.hm.app.model.User where email = :email");
 		query.setParameter("email", email);
-		System.out.println(query.uniqueResult());
 		return query.uniqueResult() != null;
 	}
 
@@ -52,8 +48,9 @@ public class UserDao {
 	 */
 
 	public User findId(Integer id) {
-		Session session = HibernateSessionUtil.getSession();
+		Session session = HibernateSessionUtil.sessionFactory.openSession();
 		User user = (User) session.get(User.class, id);
+		session.close();
 		return user;
 	}
 
@@ -61,7 +58,6 @@ public class UserDao {
 	 * Login User
 	 */
 	public User loginUser(String email, String password) {
-		System.out.println("Email :" + email + " " + password);
 		Session session = HibernateSessionUtil.getSession();
 		org.hibernate.Query query = session
 				.createQuery("from com.hm.app.model.User where email=:email and password=:password");
@@ -74,12 +70,16 @@ public class UserDao {
 	}
 
 	/*
-	 * Update
+	 * User Update
 	 */
-	public boolean update(User obj) {
+	public boolean update(User obj, int id) {
 		Session session = HibernateSessionUtil.getSession();
-		session.saveOrUpdate(obj);
-			return true;
+		User user = session.load(User.class, id);
+		/*System.out.println("Valu in Update Dao "+ user);*/
+		/*session.update(obj);
+		session.flush();*/
+		session.merge(obj);
+		return true;
 	}
 
 	/*

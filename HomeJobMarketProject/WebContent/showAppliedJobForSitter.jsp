@@ -8,9 +8,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>Applied Josbs</h1>
+	<h1 align="center">Applied Josbs</h1>
 	<c:if test="${appliedJobs.size() > 0 }">
-		<table>
+		<table align="center">
 			<c:forEach items="${appliedJobs}" var="job">
 
 				<tr>
@@ -18,13 +18,25 @@
 						<table>
 							<c:forEach items="${job.value}" var="item">
 								<tr>
-									<th>${item.key}</th>
-									<td>${item.value}</td>
+									<c:if test="${item.key != 'status'}">
+										<th>${item.key}:</th>
+										<td>${item.value}</td>
+									</c:if>
+
+									<c:if test="${item.key == 'status'}">
+										<th>Status :</th>
+										<c:if test="${item.value == 'ACTIVE'}">
+											<td bgcolor="green">${item.value}</td>
+										</c:if>
+										<c:if test="${item.value != 'ACTIVE'}">
+											<td bgcolor="red">${item.value}</td>
+										</c:if>
+									</c:if>
 								</tr>
 							</c:forEach>
 						</table>
 
-						<h4>________________________________________________________________________________</h4>
+						<h4>______________________________________________________________________</h4>
 					</td>
 				</tr>
 

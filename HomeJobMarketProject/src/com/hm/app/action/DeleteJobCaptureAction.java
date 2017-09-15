@@ -11,16 +11,21 @@ import org.apache.struts.action.ActionMapping;
 import com.hm.app.form.ApplyJobForm;
 import com.hm.app.service.JobService;
 
-public class DeleteJobCaptureAction extends Action{
+public class DeleteJobCaptureAction extends Action {
 	ApplyJobForm jobForm;
 	JobService jobService = new JobService();
+
 	@Override
 	public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-	
-		jobForm = (ApplyJobForm)form;
+
+		jobForm = (ApplyJobForm) form;
 		int jobId = jobForm.getJobId();
-		return mapping.findForward("success");
+		System.out.println("Deelte job " + jobId);
+		boolean result = jobService.deleteJob(jobId);
+		if (result)
+			return mapping.findForward("success");
+		return mapping.findForward("error");
 	}
 
 }

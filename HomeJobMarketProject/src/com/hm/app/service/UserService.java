@@ -57,6 +57,7 @@ public class UserService {
 		user = userDao.loginUser(email, hashedPassword);
 		if (user == null)
 			return null;
+		
 		Map<String, Object> details = new HashMap<String, Object>();
 		details.put("fName", user.getfName());
 		details.put("lName", user.getlName());
@@ -81,7 +82,7 @@ public class UserService {
 		user.setEmail(email);
 		user.setphoneNo(phone);
 		user.setNoOfChild(noOfChild);
-		return userDao.update(user);
+		return userDao.update(user, id);
 	}
 
 	
@@ -96,7 +97,7 @@ public class UserService {
 		if (type.equals("seeker")) {
 		user.getJobs().stream().forEach(x->x.setTemporaryActive("false"));
 		}
-		return userDao.update(user);
+		return userDao.update(user, id);
 	}
 
 	public List<Object> getNoOfApplicantForApplication(Integer jobId) {

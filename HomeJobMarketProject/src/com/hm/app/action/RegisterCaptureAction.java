@@ -32,7 +32,7 @@ public class RegisterCaptureAction extends Action {
 
 		if (id > 0) {
 			System.out.println(user.getfName());
-			HashMap<String, Object> data = new HashMap();
+			HashMap<String, Object> data = new HashMap<String, Object>();
 			data.put("fName", user.getfName());
 			data.put("lName", user.getlName());
 			data.put("phone", user.getphoneNo());

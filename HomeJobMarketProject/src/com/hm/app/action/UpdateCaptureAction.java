@@ -1,18 +1,8 @@
 package com.hm.app.action;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.struts.action.Action;
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-
+import java.util.*;
+import javax.servlet.http.*;
+import org.apache.struts.action.*;
 import com.hm.app.form.UpdateForm;
 import com.hm.app.service.UserService;
 
@@ -25,11 +15,16 @@ public class UpdateCaptureAction extends Action {
 			HttpServletResponse response) throws Exception {
 		updateForm = (UpdateForm) form;
 		boolean res = false;
+		
 			request.getSession().removeAttribute("updateData");
-			Map obj1 = (Map) request.getSession().getAttribute("data");
+			
+			@SuppressWarnings("unchecked")
+			Map<String, Object> obj1 = (Map<String, Object>) request.getSession().getAttribute("data");
 			int child = 0;
-			if(request.getSession().getAttribute("type").equals("sitter"))
-				child = (Integer) obj1.get("noOfChild");
+			if(request.getSession().getAttribute("type").equals("sitter")) {
+				child = Integer.valueOf(obj1.get("noOfChild").toString());
+				
+			}
 			else
 				child = Integer.valueOf(updateForm.getNoChild());
 			if (request.getSession() != null) {
@@ -38,16 +33,17 @@ public class UpdateCaptureAction extends Action {
 			} 
 
 			if (res) {
-				Map updatedDataList = new HashMap();
-				Map<String, Object> obj = new HashMap();
+				
+				Map<String, Object> obj = new HashMap<String, Object>();
 				obj.put("fName", updateForm.getfName());
 				obj.put("lName", updateForm.getlName());
 				obj.put("phone", updateForm.getPhone());
 				obj.put("email", updateForm.getEmail());
-				obj.put("noOfChild", updateForm.getNoChild());
-				updatedDataList = obj;
+				obj.put("noOfChild", child);
+				
 				request.getSession().removeAttribute("data");
-				request.getSession().setAttribute("data", updatedDataList);
+				request.getSession().setAttribute("data", obj);
+				request.getSession().setAttribute("updateData", obj);
 				return mapping.findForward("success");
 			}
 			return mapping.findForward("error");

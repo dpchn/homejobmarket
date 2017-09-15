@@ -13,54 +13,82 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>Welcome to Seeker Profile</h1>
-	<%-- asdfds <%= OwnRequestProcessor.getCurrentRequest().get().getParameterMap() %> --%>
-	<table border="1">
+	<h1 align="center">Welcome to Home Job Market Place</h1>
+	<table align="center">
 		<tr>
-			<th>First Name :</th>
-			<td>${data.fName}</td>
-		</tr>
-		<tr>
-			<th>Last Name :</th>
-			<td>${data.lName}</td>
-		</tr>
-		<tr>
-			<th>Phone No:</th>
-			<td>${data.phone}</td>
-		</tr>
-		<tr>
-			<th>Email Id :</th>
-			<td>${data.email}</td>
-		</tr>
+			<td>
+				<table border="1">
+					<tr>
+						<th>First Name :</th>
+						<td>${data.fName}</td>
+					</tr>
+					<tr>
+						<th>Last Name :</th>
+						<td>${data.lName}</td>
+					</tr>
+					<tr>
+						<th>Phone No:</th>
+						<td>${data.phone}</td>
+					</tr>
+					<tr>
+						<th>Email Id :</th>
+						<td>${data.email}</td>
+					</tr>
 
-		<tr>
-			<th>No of Child :</th>
-			<td>${data.noOfChild}</td>
-		</tr>
+					<tr>
+						<th>No of Child :</th>
+						<td>${data.noOfChild}</td>
+					</tr>
+				</table>
 
+
+				<table align="center">
+					<tr>
+						<td>
+							<form action="job.do" method="post">
+								<input type="submit" value="Post Job" />
+							</form>
+
+						</td>
+						<td>
+							<form action="update.do" method="POST">
+								<input type="submit" value="Profile Update" />
+							</form>
+
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<form action="showPostedJob.do" method="POST">
+								<input type="submit" value="show Posted Job" />
+							</form>
+						</td>
+						<td>
+							<form action="logout.do" method="POST">
+								<input type="submit" value="Logout" />
+							</form>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<form action="accountDeactivate.do" method="POST">
+								<input type="submit" value="Account Deactivate" />
+							</form>
+						</td>
+					</tr>
+				</table>
+			</td>
+			<td>
+				<table bgcolor="green">
+					<c:forEach var="item" items="${logHistory}">
+						<tr>
+							<td>${item}</td>
+						</tr>
+					</c:forEach>
+				</table>
+			</td>
+		</tr>
 	</table>
-
-	<form action="job.do" method="post">
-		<input type="submit" value="Post Job" />
-	</form>
-
-
-	<form action="update.do" method="POST">
-		<input type="submit" value="Profile Update" />
-	</form>
-
-	<form action="showPostedJob.do" method="POST">
-		<input type="submit" value="show Posted Job" />
-	</form>
-
-	<form action="logout.do" method="POST">
-		<input type="submit" value="Logout" />
-	</form>
-
-	<form action="accountDeactivate.do" method="POST">
-		<input type="submit" value="Account Deactivate" />
-	</form>
-
 </body>
 </html>
 

@@ -15,6 +15,7 @@ import com.hm.app.dao.UserDao;
 import com.hm.app.model.Application;
 import com.hm.app.model.Job;
 import com.hm.app.model.User;
+import com.hm.app.util.ConstantPattern;
 
 public class JobService {
 	JobDao jobDao = new JobDao();
@@ -30,12 +31,10 @@ public class JobService {
 	public Integer createJob(Integer id, String jobTitle, String jobDes, String startDate, String endDate,
 			String startTime, String endTime, float payPerHour) {
 
-		SimpleDateFormat startDateFormat = new SimpleDateFormat("dd-mm-yyyy hh:mm");
-		SimpleDateFormat endDateFormat = new SimpleDateFormat("dd-mm-yyyy hh:mm");
 		Date d1 = null, d2 = null;
 		try {
-			d1 = startDateFormat.parse(startDate + " " + startTime);
-			d2 = endDateFormat.parse(endDate + " " + startTime);
+			d1 = ConstantPattern.sdf.parse(startDate + " " + startTime);
+			d2 = ConstantPattern.sdf.parse(endDate + " " + startTime);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -112,18 +111,20 @@ public class JobService {
 		return jobList;
 	}
 
-	/*
+	/*******************************************************************
 	 * Delete Job
+	 ********************************************************************
 	 */
 	public boolean deleteJob(Integer jobId) {
 		Job job = jobDao.findJob(jobId);
 		job.setTemporaryActive("false");
-		job.getApplications().stream().forEach(x->x.setTemporaryActive("false"));
+		job.getApplications().stream().forEach(x -> x.setTemporaryActive("false"));
 		return jobDao.delete(job);
 	}
 
-	/*
+	/********************************************************************
 	 * Get applied job list(For Sitter)
+	 * *******************************************************************
 	 */
 
 	public Map<Object, Object> getAppliedJob(int applyBy) {
@@ -134,33 +135,33 @@ public class JobService {
 			obj.put("JobDes", x.getJobDes());
 			obj.put("StartDate", x.getStartDate());
 			obj.put("EndDate", x.getEndDate());
+			
+			if(x.getTemporaryActive().equals("false"))
+				obj.put("status", "DEACTIVATED");
+			else {
+				obj.put("status", "ACTIVE");
+			}
 			joblist.put(x.getId(), obj);
 		});
 		return joblist;
 	}
 
 	
-	
-	
-	/*
+	/********************************************************************
 	 * Check Job Exist
+	 * *******************************************************************
 	 */
-	public boolean isJobExist(int jobId){
-		return jobDao.findJob(jobId)!=null;
+	public boolean isJobExist(int jobId) {
+		return jobDao.findJob(jobId) != null;
 	}
-	
 
-	
-	
-	
-	/*
-	 * Verify Job belong to User 
+	/********************************************************************
+	 * Verify Job belong to User
+	 * *******************************************************************
 	 */
-	
-	public boolean verifyJob(int userId, int jobId){
+
+	public boolean verifyJob(int userId, int jobId) {
 		return jobDao.getPostedJob(userId, jobId) != 0;
 	}
-	
-	
-	
+
 }

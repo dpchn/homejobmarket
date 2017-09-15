@@ -1,6 +1,7 @@
 package com.hm.app.form;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Calendar;
@@ -8,6 +9,7 @@ import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts.action.ActionErrors;
@@ -95,7 +97,7 @@ public class JobForm extends ActionForm {
 
 	@Override
 	public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
-		System.out.println("Inside.... Job Form");
+		
 
 		ActionErrors errors = new ActionErrors();
 		if (jobTitle == null || jobTitle.isEmpty())
@@ -114,7 +116,6 @@ public class JobForm extends ActionForm {
 			errors.add("payPerHour", new ActionMessage("payPerHour"));
 		boolean startTimeValidFormat = true;
 		if (startTime != null && !startTime.isEmpty() && !isThisTimeValid(startTime)) {
-			System.out.println("Check 1");
 			errors.add("invalidStartTime", new ActionMessage("invalidStartTime"));
 			startTimeValidFormat = false;
 		}
@@ -202,14 +203,17 @@ public class JobForm extends ActionForm {
 	 * Check Start date should not less than current date
 	 */
 	
+	
+	
+	
 	public static boolean isStartDateGreaterThanCurrentDate(String startDate, String startTime){
-		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-YYYY HH:mm");
+		
 		try {
-			Date startDateTime = sdf.parse(startDate+" "+startTime);
-			Date d = new Date();
-			Date currentDateTime = sdf.parse(sdf.format(d));
-			if (startDateTime.after(currentDateTime))
+			Date startDateTime = ConstantPattern.sdf.parse(startDate+" "+startTime);
+			Date currentDateTime = new Date();
+			if (startDateTime.after(currentDateTime)) {
 				return true;
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
@@ -223,11 +227,10 @@ public class JobForm extends ActionForm {
 	 */
 
 	public static boolean isBeforeDate(String startDate, String endDate, String startTime, String endTime) {
-		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-YYYY HH:mm");
 
 		try {
-			Date date1 = sdf.parse(startDate+" "+startTime);
-			Date date2 = sdf.parse(endDate+" "+endTime);
+			Date date1 = ConstantPattern.sdf.parse(startDate+" "+startTime);
+			Date date2 = ConstantPattern.sdf.parse(endDate+" "+endTime);
 			if (date1.before(date2))
 				return true;
 		} catch (Exception e) {
@@ -236,4 +239,6 @@ public class JobForm extends ActionForm {
 		}
 		return false;
 	}
+	
+
 }
