@@ -1,7 +1,7 @@
 package com.hm.app.model;
 
-import java.util.Date;
-import java.util.Set;
+import java.util.*;
+import com.hm.app.framework.Status;
 
 public class Job  implements TrackActivity{
 	private int id;
@@ -10,7 +10,7 @@ public class Job  implements TrackActivity{
 	private Date startDate;
 	private Date endDate;
 	private User postedBy;
-	private String temporaryActive;
+	private Status status;
 	private Set<Application> applications;
 	
 	@Override
@@ -27,12 +27,12 @@ public class Job  implements TrackActivity{
 		this.applications = applications;
 	}
 
-	public String getTemporaryActive() {
-		return temporaryActive;
+	public Status getStatus() {
+		return status;
 	}
 
-	public void setTemporaryActive(String temporaryActive) {
-		this.temporaryActive = temporaryActive;
+	public void setStatus(Status status) {
+		this.status = status;
 	}
 
 	public User getPostedBy() {
@@ -97,8 +97,7 @@ public class Job  implements TrackActivity{
 
 	@Override
 	public int getUserId() {
-		User u = new User();
-		return u.getId();
+		return getPostedBy().getId();
 	}
 
 	@Override
@@ -106,7 +105,4 @@ public class Job  implements TrackActivity{
 		// TODO Auto-generated method stub
 		return "Job";
 	}
-
-	
-
 }

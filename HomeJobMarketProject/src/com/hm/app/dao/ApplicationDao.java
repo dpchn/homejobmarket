@@ -23,14 +23,9 @@ public class ApplicationDao {
 	 */
 	public List<Integer> getAppliedJob(Integer memberId) {
 		Session session = HibernateSessionUtil.getSession();
-		org.hibernate.Query query = session.createQuery("from com.hm.app.model.Application where apply_by =:id");
+		org.hibernate.Query query = session.createQuery("from com.hm.app.model.Application where APPLY_BY =:id");
 		query.setParameter("id", memberId);
 
-		/*
-		 * Query q = session.
-		 * createQuery("from com.hm.app.model.Job  where jobId not IN (:applist)");
-		 * List<Application> ll = query.list(); q.setParameter("applist", ll);
-		 */
 		List<Application> app = query.getResultList();
 		List<Integer> jobList = new ArrayList<>();
 		app.stream().forEach(x -> jobList.add(x.getJobId().getId()));

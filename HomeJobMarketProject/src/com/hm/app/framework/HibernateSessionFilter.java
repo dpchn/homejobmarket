@@ -37,8 +37,10 @@ public class HibernateSessionFilter implements Filter {
 		Transaction transaction = null;
 		try {
 			session = HibernateSessionUtil.getSession();
+			
 			transaction = session.beginTransaction();
 			chain.doFilter(request, response);
+			
 			transaction.commit();
 		} catch (Exception e) {
 			System.out.println("Hibernate Session exception " + e.getMessage());

@@ -3,37 +3,49 @@
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 	<class name="com.hm.app.model.Job" table="job">
+
 		<id name="id" type="int">
 			<column name="jobId" />
 			<generator class="increment" />
 		</id>
+
 		<property name="jobTitle" type="string">
-			<column name="job_title" />
+			<column name="JOB_TITLE" />
 		</property>
+
 		<property name="jobDes" type="string">
-			<column name="job_des" />
+			<column name="JOB_DES" />
 		</property>
+
 		<property name="startDate" type="timestamp">
-			<column name="start_date" />
+			<column name="START_DATE" />
 		</property>
-		
+
 		<property name="endDate" type="timestamp">
-			<column name="end_date" />
+			<column name="END_DATE" />
 		</property>
-		
+
 		<property name="payPerHour">
-			<column name="pay_per_hour" />
+			<column name="PAY_PER_HOUR" />
 		</property>
-		
-		<property name="temporaryActive">
-			<column name="t_active" />
+
+
+
+		<property name="status">
+			<type name="org.hibernate.type.EnumType">
+				<param name="enumClass">com.hm.app.framework.Status</param>
+				<param name="type">12</param>
+			</type>
 		</property>
-		
-		<many-to-one name="postedBy" class="com.hm.app.model.User" column="posted_by" cascade="all" />
-   		
-   		<set name= "applications" table="application" cascade="all" lazy = "false" inverse="true">
-			<key column="job_id"></key>
-			<one-to-many class="com.hm.app.model.Application"/>
+
+
+		<many-to-one name="postedBy" class="com.hm.app.model.User"
+			column="POSTED_BY" cascade="all" />
+
+		<set name="applications" table="application" cascade="all" lazy="false"
+			inverse="true">
+			<key column="JOB_ID"></key>
+			<one-to-many class="com.hm.app.model.Application" />
 		</set>
 	</class>
 </hibernate-mapping>

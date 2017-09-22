@@ -46,7 +46,7 @@ public class LoginForm extends  ActionForm{
 			errors.add("emailNotExist",new ActionMessage("emailNotExist"));
 		}
 		
-		if(login.checkUser(email, password)==null && (!email.isEmpty() && email!=null) && emailStatus ) {
+		if( emailStatus && login.checkUser(email, password)==null && !email.isEmpty() && email!=null) {
 			errors.add("wrongPassword",new ActionMessage("wrongPassword"));
 		}
 		

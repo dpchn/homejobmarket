@@ -8,8 +8,6 @@ import com.hm.app.util.ConstantPattern;
 
 public class RegisterForm extends ValidatorForm {
 
-
-	
 	private int id;
 	private String fName;
 	private String lName;
@@ -121,18 +119,7 @@ public class RegisterForm extends ValidatorForm {
 		return actionErrors;
 	}
 
-	@Override
-	public void reset(ActionMapping mapping, HttpServletRequest request) {
 
-		fName = null;
-		lName = null;
-		phoneNo = null;
-		email = null;
-		type = null;
-		password = null;
-		noChild = null;
-
-	}
 	
 	/*
 	 * Check type

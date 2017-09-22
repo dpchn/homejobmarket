@@ -7,5 +7,4 @@ public interface TrackActivity {
 	public int getUserId();
 	public String getModelType();
 	
-	
 }

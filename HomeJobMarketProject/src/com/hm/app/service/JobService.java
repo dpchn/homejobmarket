@@ -1,29 +1,21 @@
 package com.hm.app.service;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.format.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import com.hm.app.dao.ApplicationDao;
-import com.hm.app.dao.JobDao;
-import com.hm.app.dao.UserDao;
-import com.hm.app.model.Application;
-import com.hm.app.model.Job;
-import com.hm.app.model.User;
+import java.util.*;
+import com.hm.app.dao.*;
+import com.hm.app.framework.Status;
+import com.hm.app.model.*;
 import com.hm.app.util.ConstantPattern;
 
 public class JobService {
 	JobDao jobDao = new JobDao();
 	Job jobModel = new Job();
+	User  user = new User();
 	UserDao userDao = new UserDao();
 	ApplicationDao applicationDao = new ApplicationDao();
 	Application application = new Application();
 
+	
 	/**************************************************************************************
 	 * Create Job
 	 **************************************************************************************
@@ -40,12 +32,12 @@ public class JobService {
 		}
 
 		Job jobModel = new Job();
-		jobModel.setPostedBy(new UserDao().findId(id));
+		jobModel.setPostedBy(userDao.findId(id));
 		jobModel.setJobTitle(jobTitle);
 		jobModel.setJobDes(jobDes);
 		jobModel.setStartDate(d1);
 		jobModel.setEndDate(d2);
-		jobModel.setTemporaryActive("true");
+		jobModel.setStatus(Status.ACTIVE);;
 		jobModel.setPayPerHour(payPerHour);
 		return jobDao.add(jobModel);
 	}
@@ -56,15 +48,11 @@ public class JobService {
 	 */
 
 	public List<Object> getAllJob(Integer memberId) {
-		ApplicationDao applicationDao = new ApplicationDao();
+		List<Integer> appliedJobs = applicationDao.getAppliedJob(memberId);
 		List<Job> job = jobDao.fetchAllJob();
-		List<Integer> jobIds = new ArrayList<>();
-		job.stream().forEach(x -> jobIds.add(x.getId()));
-
-		List<Integer> jobs = applicationDao.getAppliedJob(memberId);
 		List<Object> jobList = new ArrayList<>();
 		for (Job l : job) {
-			if (!jobs.contains(l.getId())) {
+			if (!appliedJobs.contains(l.getId())) {
 				Map<String, Object> obj = new HashMap<>();
 				obj.put("jobId", l.getId());
 				obj.put("jobTitle", l.getJobTitle());
@@ -86,7 +74,7 @@ public class JobService {
 	public Integer applyJob(Integer jobId, Integer memberId) {
 		application.setJobId(jobDao.findJob(jobId));
 		application.setApplyBy(userDao.findId(memberId));
-		application.setTemporaryActive("true");
+		application.setStatus(Status.ACTIVE);
 		return applicationDao.apply(application);
 	}
 
@@ -117,11 +105,26 @@ public class JobService {
 	 */
 	public boolean deleteJob(Integer jobId) {
 		Job job = jobDao.findJob(jobId);
-		job.setTemporaryActive("false");
-		job.getApplications().stream().forEach(x -> x.setTemporaryActive("false"));
+		job.setStatus(Status.INACTIVE);
+		job.getApplications().stream().forEach(x -> x.setStatus(Status.INACTIVE));
 		return jobDao.delete(job);
 	}
 
+	/*
+	 * GetJob For Update
+	 */
+	public Map getJob(Integer jobId) {
+		Job job = jobDao.findJob(jobId);
+		Map<String, Object> map = new HashMap();
+		map.put("jobTitle", job.getJobTitle());
+		map.put("jobDes", job.getJobDes());
+		map.put("startDate", job.getStartDate().getDate());
+		map.put("endDate", job.getEndDate().getDate());
+		map.put("startTime", job.getStartDate().getTime());
+		map.put("endTime", job.getEndDate().getTime());
+		map.put("payPerHour", job.getPayPerHour());
+		return map;
+	}
 	/********************************************************************
 	 * Get applied job list(For Sitter)
 	 * *******************************************************************
@@ -135,12 +138,7 @@ public class JobService {
 			obj.put("JobDes", x.getJobDes());
 			obj.put("StartDate", x.getStartDate());
 			obj.put("EndDate", x.getEndDate());
-			
-			if(x.getTemporaryActive().equals("false"))
-				obj.put("status", "DEACTIVATED");
-			else {
-				obj.put("status", "ACTIVE");
-			}
+			obj.put("status", x.getStatus());
 			joblist.put(x.getId(), obj);
 		});
 		return joblist;

@@ -12,9 +12,7 @@ public class UserDao {
 	public int add(User object) {
 		Session session = HibernateSessionUtil.getSession();
 		Integer id = (Integer) (session.save(object));
-		if (id > 0)
-			return id;
-		return 0;
+		return id;
 
 	}
 
@@ -25,7 +23,7 @@ public class UserDao {
 	 */
 	public boolean isExist(String email) {
 		Session session = HibernateSessionUtil.getSession();
-		org.hibernate.Query query = session.createQuery("from com.hm.app.model.User where email = :email");
+		org.hibernate.Query query = session.createQuery("from com.hm.app.model.User where EMAIL = :email");
 		query.setParameter("email", email);
 		return query.uniqueResult() != null;
 	}
@@ -36,10 +34,10 @@ public class UserDao {
 	 */
 	public String isActive(String email) {
 		Session session = HibernateSessionUtil.getSession();
-		org.hibernate.Query query = session.createQuery("from com.hm.app.model.User where email =:email");
+		org.hibernate.Query query = session.createQuery("from com.hm.app.model.User where EMAIL =:email");
 		query.setParameter("email", email);
 		User u = (User) query.uniqueResult();
-		return u.getTemporaryActive();
+		return u.getStatus().toString();
 	}
 
 	/***************************************************************
@@ -60,39 +58,22 @@ public class UserDao {
 	public User loginUser(String email, String password) {
 		Session session = HibernateSessionUtil.getSession();
 		org.hibernate.Query query = session
-				.createQuery("from com.hm.app.model.User where email=:email and password=:password");
+				.createQuery("from com.hm.app.model.User where EMAIL=:email and PASSWORD=:password");
 		query.setParameter("email", email);
 		query.setParameter("password", password);
 		User user = (User) query.uniqueResult();
-		if (user != null)
-			return user;
-		return null;
+		return user;
 	}
 
+	
 	/*
 	 * User Update
 	 */
 	public boolean update(User obj, int id) {
 		Session session = HibernateSessionUtil.getSession();
-		User user = session.load(User.class, id);
-		/*System.out.println("Valu in Update Dao "+ user);*/
-		/*session.update(obj);
-		session.flush();*/
 		session.merge(obj);
 		return true;
 	}
 
-	/*
-	 * static void test() { Session session =
-	 * CreateSession.sessionFactory.openSession(); org.hibernate.Query q =
-	 * session.createQuery("from com.hm.app.model.User"); List<User> list =
-	 * q.getResultList(); List<Application> l = new ArrayList<Application>();
-	 * //list.stream().forEach(x->System.out.println(x.getApplications()));
-	 * list.stream().forEach(x->{ Set<Job> a = x.getJobs();
-	 * System.out.println(x.getfName()); for(Job j: a)
-	 * System.out.println(j.getId()); }); }
-	 * 
-	 * public static void main(String[] args) { test(); }
-	 */
 
 }

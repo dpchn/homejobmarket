@@ -1,24 +1,10 @@
 package com.hm.app.form;
 
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
-
-import org.apache.struts.action.ActionErrors;
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.ActionMessage;
-
-import com.hm.app.util.ConstantPattern;
-import com.hm.app.util.ReadFileWords;
+import org.apache.struts.action.*;
+import com.hm.app.util.*;
 
 public class JobForm extends ActionForm {
 

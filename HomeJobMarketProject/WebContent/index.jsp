@@ -7,14 +7,19 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>Weclome to Home Job Market Project</h1>
 
-	<form action="auth/reg.do">
-		<input type="submit" value="Register">
-	</form>
-	<br>
-	<form action="auth/login.do">
-		<input type="submit" value="Login">
-	</form>
+	<h1 align="center">Weclome to Home Job Market Project</h1>
+	<table align="center">
+		<tr>
+			<button >
+				<a href="auth/reg.do"> Register </a>
+			</button>
+		</tr>
+		<tr>
+			<button>
+				<a href="auth/login.do"> Login </a>
+			</button>
+		</tr>
+	</table>
 </body>
 </html>

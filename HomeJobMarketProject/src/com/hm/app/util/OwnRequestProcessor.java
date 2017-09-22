@@ -13,7 +13,7 @@ public class OwnRequestProcessor extends RequestProcessor {
 	//private OwnRequestProcessor processor = new OwnRequestProcessor();
 	@Override
 	protected boolean processPreprocess(HttpServletRequest request, HttpServletResponse response) {
-		System.out.println(request.getServletPath());
+		//System.out.println(request.getServletPath());
 		HttpSession session = request.getSession();
 
 		if (request.getServletPath().contains("auth")) {
@@ -24,13 +24,11 @@ public class OwnRequestProcessor extends RequestProcessor {
 			return true;
 		}
 		
-		if (session != null && session.getAttribute("id") != null && request.getServletPath().contains("sitter")
-				&& request.getSession().getAttribute("type").equals("sitter")) {
+		if (session != null && session.getAttribute("id") != null 
+				&& request.getServletPath().contains((String)request.getSession().getAttribute("type"))) {
 			return true;
 		}
-		if (session != null && session.getAttribute("id") != null && request.getServletPath().contains("seeker")
-				&& request.getSession().getAttribute("type").equals("seeker"))
-			return true;
+		
 		else {
 			System.out.println("else...");
 			try {

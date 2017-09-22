@@ -100,7 +100,12 @@
 			name="update" validate="false" scope="request">
 			<forward name="success" path="/seekerProfileUpdate.jsp" />
 		</action>
-
+		
+		<action path="/seeker/jobUpdate" type="com.hm.app.action.JobUpdateAction"
+			name="apply" validate="false" scope="request">
+			<forward name="success" path="/jobEdit.jsp" />
+		</action>
+		
 		<action path="/sitter/update" type="com.hm.app.action.UpdateAction"
 			name="update" validate="false" scope="request">
 			<forward name="success" path="/sitterProfileUpdate.jsp" />
@@ -113,10 +118,14 @@
 			type="com.hm.app.action.UpdateCaptureAction"  scope="request" input="/seeker/update.do">
 			<forward name="success" path="/seeker/seekerProfile.do" />
 		</action>
+		
+		<action path="/seeker/jobCaptureUpdate" type="com.hm.app.action.JobUpdateCaptureAction"
+			name="job" validate="true" scope="request" input="/seeker/jobUpdate.do">
+			<forward name="success" path="/seeker/seekerProfile.do" />
+		</action>
 
 		<action path="/sitter/captureUpdate" name="update" validate="true" scope="request"
 			type="com.hm.app.action.UpdateCaptureAction" input="/sitter/update.do">
-			<!-- <forward name="seeker" path="/seeker/seekerProfile.do" /> -->
 			<forward name="success" path="/sitter/sitterProfile.do" />
 		</action>
 		<!--==================================================================================== -->

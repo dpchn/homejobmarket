@@ -49,13 +49,6 @@ public class MyInterceptor implements Interceptor {
 
 	@Override
 	public String getEntityName(Object object) throws CallbackException {
-		/*
-		 * System.out.println("getEntityName...."+ object.getClass().getName());
-		 * if(object.getClass().getName().contains("User")) { User user = (User)object;
-		 * System.out.println("id is ==="+ user.getId());
-		 * logService.saveHistory(user.getId(), "Profile Updated at "+LocalDate.now());
-		 * }
-		 */
 		return null;
 	}
 
@@ -103,18 +96,15 @@ public class MyInterceptor implements Interceptor {
 			Type[] arg5) throws CallbackException {
 		System.out.println("onFlushDirty......." + object.getClass().getName());
 		TrackActivity activity = (TrackActivity) object;
-		if(object instanceof User)
-		  if (!objects.contains(object)){ 
-			  logService.saveHistory(((User)object).getId()," Profile Update", activity.getId(),
-						activity.getModelType());
-		  }
+		if (oldValue != null && !objects.contains(object)){
+			logService.saveHistory(activity.getUserId(), " Profile Update", activity.getId(), activity.getModelType());
+		}
 		return false;
 	}
 
 	@Override
 	public boolean onLoad(Object object, Serializable arg1, Object[] arg2, String[] arg3, Type[] arg4)
 			throws CallbackException {
-		// System.out.println("onLoad......."+ object.getClass().getName());
 		return false;
 	}
 
@@ -127,46 +117,18 @@ public class MyInterceptor implements Interceptor {
 	@Override
 	public boolean onSave(Object object, Serializable id, Object[] newValue, String[] oldValue, Type[] arg4)
 			throws CallbackException {
-
 		System.out.println("onSave.........." + object.getClass().getName());
 
 		if (object instanceof TrackActivity && !objects.contains(object)) {
 			TrackActivity activity = (TrackActivity) object;
-			if (activity.getModelType().equals("User"))
-				logService.saveHistory(activity.getUserId(), activity.getModelType() + " Created", activity.getId(),
-						activity.getModelType());
-			else {
-				logService.saveHistory(MyInterceptor.getUserId(newValue), activity.getModelType() + " Created", activity.getId(),
-						activity.getModelType());
-			objects.add(MyInterceptor.getUserObject(newValue));
-			}
-
+			logService.saveHistory(activity.getUserId(), activity.getModelType() + " Created", activity.getId(),
+					activity.getModelType());
 			objects.add(object);
 		}
-
 		return false;
 	}
 
-	static int getUserId(Object[] newValue) {
-		for (Object o : newValue) {
-			if (o != null && o instanceof User) {
-				User user = (User) o;
-				return user.getId();
-			}
-		}
-		return 0;
-	}
 	
-	
-	static Object getUserObject(Object[] newValue) {
-		for (Object o : newValue) {
-			if (o != null && o instanceof User) {
-				User user = (User) o;
-				return user;
-			}
-		}
-		return null;
-	}
 
 	@Override
 	public void postFlush(Iterator iterator) throws CallbackException {

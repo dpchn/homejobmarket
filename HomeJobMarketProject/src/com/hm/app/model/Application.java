@@ -1,10 +1,12 @@
 package com.hm.app.model;
 
+import com.hm.app.framework.Status;
+
 public class Application  implements TrackActivity{
 	private int id;
-	private Job jobId;
+	private Job job;
 	private User applyBy;
-	private String temporaryActive;
+	private Status status;
 
 	@Override
 	public boolean equals(Object obj) {
@@ -12,13 +14,15 @@ public class Application  implements TrackActivity{
 		return obj instanceof Application && ((User)obj).getId() == getId();
 	}
 	
-	public String getTemporaryActive() {
-		return temporaryActive;
+	
+	public Status getStatus() {
+		return status;
 	}
 
-	public void setTemporaryActive(String temporaryActive) {
-		this.temporaryActive = temporaryActive;
+	public void setStatus(Status status) {
+		this.status = status;
 	}
+
 
 	public int getId() {
 		return id;
@@ -29,11 +33,11 @@ public class Application  implements TrackActivity{
 	}
 
 	public Job getJobId() {
-		return jobId;
+		return job;
 	}
 
 	public void setJobId(Job jobId) {
-		this.jobId = jobId;
+		this.job = jobId;
 	}
 
 	public User getApplyBy() {
@@ -46,14 +50,11 @@ public class Application  implements TrackActivity{
 
 	@Override
 	public int getUserId() {
-		User u = new User();
-		return u.getId();
+		return getApplyBy().getId();
 	}
 
 	@Override
 	public String getModelType() {
-		// TODO Auto-generated method stub
 		return "Application";
 	}
-
 }

@@ -3,6 +3,7 @@ package com.hm.app.dao;
 import java.util.*;
 import org.hibernate.*;
 import com.hm.app.framework.HibernateSessionUtil;
+import com.hm.app.framework.Status;
 import com.hm.app.model.*;
 import org.hibernate.Query;
 
@@ -14,9 +15,7 @@ public class JobDao {
 	public Integer add(Job object) {
 		Session session = HibernateSessionUtil.getSession();
 		Integer id = (Integer) session.save(object);
-		if (id > 0)
-			return id;
-		return 0;
+		return id;
 
 	}
 
@@ -34,11 +33,11 @@ public class JobDao {
 	 * Get all job list from Job Table
 	 * **********************************************************************
 	 */
-	public List<Job> fetchAllJob() {
+	public List<Job> fetchAllJob( ) {
 		Session session = HibernateSessionUtil.getSession();
-		@SuppressWarnings("unchecked")
-		List<Job> list = session.createQuery("from com.hm.app.model.Job where t_active = true").list();
-		return list;
+		Query query= session.createQuery("from com.hm.app.model.Job where STATUS=:status");
+		query.setParameter("status", Status.ACTIVE.toString());
+		return query.list();
 	}
 
 	
@@ -53,8 +52,9 @@ public class JobDao {
 	public List<Job> getPostedJob(Integer userId) {
 		Session session = HibernateSessionUtil.getSession();
 		Query query = session
-				.createQuery("from com.hm.app.model.Job where posted_by=:userId and t_active=true");
+				.createQuery("from com.hm.app.model.Job where POSTED_BY=:userId and STATUS=:status");
 		query.setParameter("userId", userId);
+		query.setParameter("status", Status.ACTIVE.toString());
 		List<Job> list = query.list();
 		return list;
 	}
@@ -67,7 +67,7 @@ public class JobDao {
 	public Integer getPostedJob(Integer userId, Integer jobId) {
 		Session session = HibernateSessionUtil.getSession();
 		Query query = session
-				.createQuery("from com.hm.app.model.Job where posted_by=:userId and jobId=:jobId");
+				.createQuery("from com.hm.app.model.Job where POSTED_BY=:userId and jobId=:jobId");
 		query.setParameter("userId", userId);
 		query.setParameter("jobId", jobId);
 		Integer job = query.getResultList().size();
@@ -95,12 +95,13 @@ public class JobDao {
 	public List<Integer> deactivateAllUserPostejob(Integer id) {
 		Session session = HibernateSessionUtil.getSession();
 		Query query = session
-				.createQuery("from com.hm.app.model.Job where posted_by=:id and t_active=true");
+				.createQuery("from com.hm.app.model.Job where POSTED_BY=:id and STATUS=:status");
 		query.setParameter("id", id);
+		query.setParameter("status", Status.ACTIVE);
 		List<Job> job = query.list();
 		List<Integer> jobIds = new ArrayList<>();
 		job.stream().forEach(x -> {
-			x.setTemporaryActive("false");
+			x.setStatus(Status.INACTIVE);
 			jobIds.add(x.getId());
 			session.saveOrUpdate(x);
 		});
@@ -114,11 +115,9 @@ public class JobDao {
 	 */
 	public List<Job> getAppliedJob(int applyBy) {
 		Session session = HibernateSessionUtil.getSession();
-		Query query = session.createQuery("from com.hm.app.model.Application where apply_by=:applyBy");
+		Query query = session.createQuery("select app.jobId from com.hm.app.model.Application app where APPLY_BY=:applyBy");
 		query.setParameter("applyBy", applyBy);
-		List<Application> appliedJobs = query.list();
-		List<Job> jobList = new ArrayList<>();
-		appliedJobs.stream().forEach(x -> jobList.add(x.getJobId()));
+		List<Job> jobList = query.list();
 		return jobList;
 	}
 
@@ -129,11 +128,11 @@ public class JobDao {
 	 */
 	public void applicationDeactivate(List<Integer> jobIds) {
 		Session session = HibernateSessionUtil.getSession();
-		Query query = session.createQuery("from com.hm.app.model.Application where job_id IN (:jobIds)");
+		Query query = session.createQuery("from com.hm.app.model.Application where JOB_ID IN (:jobIds)");
 		query.setParameter("jobIds", jobIds);
 		List<Application> app = query.getResultList();
 		app.stream().forEach(x -> {
-			x.setTemporaryActive("false");
+			x.setStatus(Status.INACTIVE);;
 			session.saveOrUpdate(x);
 		});
 	}
@@ -144,7 +143,7 @@ public class JobDao {
 	 */
 	public List<Application> getNoOfApplicantforJob(Integer jobId) {
 		Session session = HibernateSessionUtil.getSession();
-		Query query = session.createQuery("from com.hm.app.model.Application where job_id=:jobId");
+		Query query = session.createQuery("from com.hm.app.model.Application where JOB_ID=:jobId");
 		query.setParameter("jobId", jobId);
 		List<Application> list = query.getResultList();
 		return list;

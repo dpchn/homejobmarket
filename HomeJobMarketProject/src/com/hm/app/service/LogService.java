@@ -22,22 +22,13 @@ public class LogService implements LogHibernateModel{
 	
 	
 	public List<Object> RecentActivity(int id){
-		//logdao.getHistory(id);
 		List<Object> list = new ArrayList<Object>();
 		Map<Object, Object> map = new HashMap<Object, Object>();
 		for(LogHistory lh : logdao.getHistory(id)) {
-			/*map.put("operation", lh.getOperation());
-			map.put("model", lh.getModelType());*/
 			list.add(lh.getOperation());
 			
 		}
 		return list;
 	}
-	/*public static void main(String[] args) {
-		LogDao dao = new LogDao();
-		for(LogHistory l: dao.getHistory(39))
-			System.out.println();
-	}
-	*/
 
 }

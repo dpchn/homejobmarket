@@ -7,12 +7,18 @@
 			<column name="appId" />
 			<generator class="increment" />
 		</id>
-		 <property name="temporaryActive">
-			<column name="t_active" />
+		
+		<property name="status">
+			<type name="org.hibernate.type.EnumType">
+				<param name="enumClass">com.hm.app.framework.Status</param>
+				<param name="type">12</param>
+			</type>
 		</property>
-		
-		<many-to-one name="applyBy" class="com.hm.app.model.User" column="apply_by" not-null="true"  cascade="all" />
-		<many-to-one name="jobId" class="com.hm.app.model.Job" column="job_id" not-null="true" cascade="all" />
-		
+
+		<many-to-one name="applyBy" class="com.hm.app.model.User"
+			column="APPLY_BY" not-null="true" cascade="all" />
+		<many-to-one name="jobId" class="com.hm.app.model.Job"
+			column="JOB_ID" not-null="true" cascade="all" />
+
 	</class>
 </hibernate-mapping>

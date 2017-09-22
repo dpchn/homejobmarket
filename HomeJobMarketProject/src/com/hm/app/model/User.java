@@ -1,6 +1,7 @@
 package com.hm.app.model;
 
-import java.util.Set;
+import java.util.*;
+import com.hm.app.framework.Status;
 
 public class User implements TrackActivity {
 
@@ -17,14 +18,21 @@ public class User implements TrackActivity {
 	private String email;
 	private String password;
 	private int noOfChild;
-	private Set<Job> jobs;
+	private Set<Job> jobs= new HashSet<Job>(0);
 	private Set<Application> applications;
 	
 
-	private String temporaryActive;
-	// private enum type {seeker,sitter};
+	private Status status;
 	
 	
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status temporaryActive) {
+		this.status = temporaryActive;
+	}
+
 	public Set<Job> getJobs() {
 		return jobs;
 	}
@@ -49,13 +57,6 @@ public class User implements TrackActivity {
 		this.phoneNo = phoneNo;
 	}
 
-	public String getTemporaryActive() {
-		return temporaryActive;
-	}
-
-	public void setTemporaryActive(String temporaryActive) {
-		this.temporaryActive = temporaryActive;
-	}
 
 	private String type;
 

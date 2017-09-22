@@ -14,6 +14,7 @@ public class LoginCaptureAction extends Action {
 			HttpServletResponse response) throws Exception {
 		LoginForm user = (LoginForm) form;
 	
+		
 		Map<String, Object> result = login.checkUser(user.getEmail(), user.getPassword());
 		HttpSession httpSession = request.getSession();
 		if (result != null) {

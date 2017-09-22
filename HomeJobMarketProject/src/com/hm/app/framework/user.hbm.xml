@@ -8,42 +8,49 @@
 			<generator class="increment" />
 		</id>
 		<property name="fName" type="string">
-			<column name="f_name" length="20" not-null="true" />
+			<column name="FIRST_NAME" not-null="true" />
 		</property>
 		<property name="lName" type="string">
-			<column name="l_name" />
+			<column name="LAST_NAME" />
 		</property>
+
 		<property name="phoneNo">
-			<column name="phone" length="20" not-null="true" />
+			<column name="PHONE" not-null="true" />
 		</property>
 		<property name="email" type="string">
-			<column name="email" length="20" not-null="true" />
+			<column name="EMAIL" not-null="true" />
 		</property>
 		<property name="password" type="string">
-			<column name="password" />
+			<column name="PASSWORD" />
 		</property>
 
 		<property name="type">
-			<column name="type" />
+			<column name="TYPE" />
 		</property>
 
 		<property name="noOfChild">
-			<column name="no_of_child" />
+			<column name="NO_OF_CHILD" />
 		</property>
-		<property name="temporaryActive">
-			<column name="t_active" default="true" not-null="true" />
+
+		<property name="status">
+			<type name="org.hibernate.type.EnumType">
+				<param name="enumClass">com.hm.app.framework.Status</param>
+				<param name="type">12</param>
+			</type>
 		</property>
-		
-		<set name= "jobs" table="job" cascade="all" lazy = "false">
-			<key column="posted_by"></key>
-			<one-to-many class="com.hm.app.model.Job"/>
+
+
+		<set name="jobs" table="job" cascade="all" lazy="true" inverse="true"
+			fetch="select">
+			<key column="POSTED_BY"></key>
+			<one-to-many class="com.hm.app.model.Job" />
 		</set>
-		
-		<set name= "applications" table="application" cascade="all" lazy = "false" >
-			<key column="apply_by"></key>
+
+		<set name="applications" table="application" cascade="all" lazy="false">
+			<key column="APPLY_BY"></key>
 			<one-to-many class="com.hm.app.model.Application" />
 		</set>
-		
+
 
 	</class>
 </hibernate-mapping>
